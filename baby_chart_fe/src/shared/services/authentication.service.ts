@@ -28,4 +28,14 @@ export class AuthenticationService {
   getToken(){
     return localStorage.getItem('authToken')
   }
+
+   isLoggedIn(){
+    return !!this.getToken() // !! converts to a boolean wowzers
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+		this.tokenSubject.next(null);
+		//this.router.navigate(['navbar'])
+  }
 }
