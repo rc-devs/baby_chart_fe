@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+  private readonly tokenSubject = new BehaviorSubject<string | null>(null);
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -17,9 +18,14 @@ export class AuthenticationService {
     })
   }
 
-  // set token
+  // set token invoked in login component
+  setToken(token: string){
+    localStorage.setItem('authToken', token)
+    this.tokenSubject.next(token)
+  }
 
+  // get token from storage
   getToken(){
-    // get token from storage
+    return localStorage.getItem('authToken')
   }
 }
