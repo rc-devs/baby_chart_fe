@@ -1,3 +1,7 @@
 <button (click)="authService.logout()">Logout</button>
 
-<p>dashboard works!</p>
+<nav>
+  <button [routerLink]="['/dashboard/user-profile']"> Your Profile </button>
+</nav>
+   
+<router-outlet></router-outlet>
