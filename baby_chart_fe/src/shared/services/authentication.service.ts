@@ -19,7 +19,6 @@ export class AuthenticationService {
    }) 
   }
 
-
   // set token invoked in login component
   setToken(token: string){
     localStorage.setItem('authToken', token)
