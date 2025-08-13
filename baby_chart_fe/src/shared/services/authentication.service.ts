@@ -13,10 +13,12 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<{ token: string }> {
-  return this.http.post<{ token: string }>(`${environment.apiUrl}/sessions`, {
+  return this.http.post<{ token: string }>(`${environment.apiUrl}/login`, {
     email,
     password
-   }) 
+   },
+   { headers: { 'Content-Type': 'application/json' } }
+  ) 
   }
 
 
