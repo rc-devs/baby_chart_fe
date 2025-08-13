@@ -15,9 +15,4 @@ export class AppComponent {
 
   constructor(public authService: AuthenticationService){}
 
-  displaySignup = signal<boolean>(false);
-
-  toggleSignup(){
-    this.displaySignup.set(!this.displaySignup())
-  }
 }

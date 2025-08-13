@@ -1,11 +1,6 @@
 @if(!authService.isLoggedIn()){
   <app-login></app-login>
-  <button (click)="toggleSignup()">Sign Up Here!</button>
-    @if(displaySignup()){
-      <app-sign-up></app-sign-up>
-    } @else {
-
-    }
+  <app-sign-up></app-sign-up>
 } @else {
   <router-outlet></router-outlet>
 }
