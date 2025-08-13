@@ -1,12 +1,18 @@
 <button (click)="toggleSignup()">Sign Up Here!</button>
     @if(displaySignup()){
       <form [formGroup]="signUpForm" (ngSubmit)="signUpHandler()">
-        <label for="username">Enter your desired Username!</label>
-        <input type="text" formControlName="username">
+        <label for="name_first">First Name</label>
+          <input type="text" formControlName="name_first">
+        <label for="name_last">Last Name</label>
+          <input type="text" formControlName="name_last">
+        <label for="email">Email</label>
+          <input type="email" formControlName="email">
+        <label for="username">Enter your desired Username</label>
+          <input type="text" formControlName="username">
         <label for="password">Enter your password</label>
-        <input type="password" formControlName="password">
-        <label for="password_confirmation">Re-enter your password</label>
-        <input type="password" formControlName="password_confirmation">
+          <input type="password" formControlName="password">
+        <label for="password_confirmation">Confirm your password</label>
+          <input type="password" formControlName="password_confirmation">
         <button type="submit" [disabled]="!signUpForm.valid">Sign Me Up!</button>
       </form>
     } @else {
