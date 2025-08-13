@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  
+  {path: '', redirectTo: '/login', pathMatch: 'full' }, // set as dashboard when auth guards set
   {
     path: 'login',
     loadComponent: () => import('./core/login/login.component').then((c) => c.LoginComponent)
