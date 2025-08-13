@@ -11,6 +11,13 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./features/dashboard/dashboard.component').then((c) => c.DashboardComponent)
+    loadComponent: () => import('./features/dashboard/dashboard.component').then((c) => c.DashboardComponent), 
+    children: [
+      {
+        path: 'user-profile',
+        loadComponent: () => import('./features/dashboard/user-profile/user-profile.component').then((c) => c.UserProfileComponent),
+      }
+    ]
+
   }
 ];
