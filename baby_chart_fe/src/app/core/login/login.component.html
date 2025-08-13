@@ -1,7 +1,7 @@
 <form [formGroup]="loginForm" (ngSubmit)="loginHandler()">
   <label for="email">Enter Email</label>
-  <input type="email" name="email" placeholder="email@example.com">
+  <input type="email" name="email" placeholder="email@example.com" formControlName="email">
   <label for="password">Enter Password</label>
-  <input type="password" name="password" placeholder="password">
-  <button type="submit" >Submit</button>
+  <input type="password" name="password" placeholder="password" formControlName="password">
+  <button type="submit">Submit</button>
 </form>
