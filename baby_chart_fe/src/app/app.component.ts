@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { LoginComponent } from './core/login/login.component';
 import { AuthenticationService } from '../shared/services/authentication.service';
@@ -14,4 +14,10 @@ export class AppComponent {
   title = 'baby_chart_fe';
 
   constructor(public authService: AuthenticationService){}
+
+  displaySignup = signal<boolean>(false);
+
+  toggleSignup(){
+    this.displaySignup.set(!this.displaySignup())
+  }
 }
