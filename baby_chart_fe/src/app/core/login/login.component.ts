@@ -19,20 +19,15 @@ export class LoginComponent {
   })
 
   loginHandler() {
-  this.authService.login(this.loginForm.value.email!, this.loginForm.value.password!).subscribe({
-    next: (res: any) => {
-      if (res && res.token) {
-        this.authService.setToken(res.token);
-        // this.router.navigate(['/dashboard']) //not currently a route
-      } else {
-        console.error('Invalid login response:', res);
-        alert("Login failed. Please check your credentials.");
-      }
-    },
-    error: (error: any) => {
-      alert("Login error. Ensure you are using a valid username and password.");
-      console.error('Login error', error);
-    }
-  });
+    this.authService.login(this.loginForm.value.email!, this.loginForm.value.password!).subscribe({
+        next: (res: { token: string }) => {
+          this.authService.setToken(res.token);
+          //this.router.navigate(['/']);
+        },
+        error: (error: any) => {
+          alert("Login error. Ensure you are using a valid username and password.");
+          console.error('Login error', error);
+        },
+    });
 }
 }
