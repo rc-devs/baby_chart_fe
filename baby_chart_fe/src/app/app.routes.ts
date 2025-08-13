@@ -15,7 +15,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'user-profile',
-        loadComponent: () => import('./features/dashboard/user-profile/user-profile.component').then((c) => c.UserProfileComponent),
+        loadComponent: () => import('./features/user-profile/user-profile.component').then((c) => c.UserProfileComponent),
       }
     ]
 
