@@ -16,9 +16,7 @@ export class AuthenticationService {
   return this.http.post<{ token: string }>(`${environment.apiUrl}/login`, {
     email,
     password
-   },
-   { headers: { 'Content-Type': 'application/json' } }
-  ) 
+   }) 
   }
 
 
@@ -38,7 +36,7 @@ export class AuthenticationService {
   }
 
   logout(){
-    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
 		this.tokenSubject.next(null);
 		//this.router.navigate(['navbar'])
   }
