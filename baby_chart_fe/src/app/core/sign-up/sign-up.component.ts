@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { AuthenticationService } from '../../../shared/services/authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,11 +12,17 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class SignUpComponent {
 constructor(private authService: AuthenticationService, private matSnackBar: MatSnackBar){}
 
+  displaySignup = signal<boolean>(false);
+
   signUpForm = new FormGroup({
     username: new FormControl("", [Validators.required]),
     password: new FormControl("",[Validators.required]),
     password_confirmation: new FormControl("", [Validators.required]),
   })
+
+  toggleSignup(){
+    this.displaySignup.set(!this.displaySignup())
+  }
 
   signUpHandler(){
     this.authService.signUp(this.signUpForm.value.username!, this.signUpForm.value.password!, this.signUpForm.value.password_confirmation!).subscribe({
