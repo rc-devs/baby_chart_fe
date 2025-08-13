@@ -22,7 +22,7 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value.email!, this.loginForm.value.password!).subscribe({
         next: (res: { token: string }) => {
           this.authService.setToken(res.token);
-          //this.router.navigate(['/']);
+          this.router.navigate(['/dashboard']);
         },
         error: (error: any) => {
           alert("Login error. Ensure you are using a valid username and password.");
