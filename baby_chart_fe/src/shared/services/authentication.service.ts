@@ -12,6 +12,17 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  signUp(name_first: string, name_last: string, email: string, username: string, password:string, password_confirmation:string){
+    return this.http.post(`${environment.apiUrl}/users`, {
+      name_first,
+      name_last,
+      email, 
+      username,
+      password, 
+      password_confirmation
+    })
+  }
+
   login(email: string, password: string): Observable<{ token: string }> {
   return this.http.post<{ token: string }>(`${environment.apiUrl}/login`, {
     email,

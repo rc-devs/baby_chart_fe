@@ -15,6 +15,9 @@ constructor(private authService: AuthenticationService, private matSnackBar: Mat
   displaySignup = signal<boolean>(false);
 
   signUpForm = new FormGroup({
+    name_first: new FormControl("", [Validators.required]),
+    name_last: new FormControl("", [Validators.required]),
+    email: new FormControl("", [Validators.required, Validators.email]),
     username: new FormControl("", [Validators.required]),
     password: new FormControl("",[Validators.required]),
     password_confirmation: new FormControl("", [Validators.required]),
@@ -25,7 +28,7 @@ constructor(private authService: AuthenticationService, private matSnackBar: Mat
   }
 
   signUpHandler(){
-    this.authService.signUp(this.signUpForm.value.username!, this.signUpForm.value.password!, this.signUpForm.value.password_confirmation!).subscribe({
+    this.authService.signUp(this.signUpForm.value.name_first!, this.signUpForm.value.name_last!, this.signUpForm.value.email!, this.signUpForm.value.username!, this.signUpForm.value.password!, this.signUpForm.value.password_confirmation!).subscribe({
       next: (res: any) => {
         this.matSnackBar.open("Sign-up successful! You may now use your login credentials!", 'Close')
         this.signUpForm.reset()
