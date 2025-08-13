@@ -32,6 +32,7 @@ constructor(private authService: AuthenticationService, private matSnackBar: Mat
       next: (res: any) => {
         this.matSnackBar.open("Sign-up successful! You may now use your login credentials!", 'Close')
         this.signUpForm.reset()
+        this.toggleSignup()
       },
       error: (error: any) => {
         this.matSnackBar.open("There was some error during sign-up. Refer to the Credential Requirements, and try again.", 'Close')
