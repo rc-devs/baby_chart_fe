@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-edit-user',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'
 })
