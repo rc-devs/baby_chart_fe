@@ -43,6 +43,6 @@ export class EditUserComponent {
   
 
   editUserHandler(){
-    
+    console.log('edit handler fires')
   }
 }
