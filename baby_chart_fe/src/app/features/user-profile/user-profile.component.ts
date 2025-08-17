@@ -18,7 +18,7 @@ export class UserProfileComponent implements OnInit{
   constructor(private userService: UserService, private router: Router, private authService: AuthenticationService){}
 
   ngOnInit(): void {
-    this.userService.loadCurrentUserIfLoggedIn(this.authService)
-    this.userService.currentUserSubject.subscribe((res) => this.user.set(res)) 
+    this.userService.loadCurrentUserIfLoggedIn(this.authService) //get user data
+    this.userService.currentUserSubject.subscribe((res) => this.user.set(res)) //assign user data to signal for display in html
   }
 }
