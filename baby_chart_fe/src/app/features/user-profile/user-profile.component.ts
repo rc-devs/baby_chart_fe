@@ -11,7 +11,7 @@ import { AuthenticationService } from '../../../shared/services/authentication.s
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent implements OnInit{
-  user = signal<User | null>(null);
+  user = signal<User | null>(null); // should be in service
   userId!: number;
 
   constructor(private userService: UserService, private router: Router, private authService: AuthenticationService){}
