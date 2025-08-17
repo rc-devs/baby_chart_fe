@@ -1,4 +1,12 @@
-<p>edit-user works!</p>
-
+<form [formGroup]="updateUserDataForm" (ngSubmit)="editUserHandler()">
+  <label for="username">Update username</label>
+    <input type="text" name="username" formControlName="username">
+  <label for="email">Update email</label>
+    <input type="email" name="email" formControlName="email">
+  <label for="name_first">Update first name</label>
+    <input type="text" name="name_first" formControlName="name_first">
+  <label for="name_last">Update last name</label>
+    <input type="text" name="name_last" formControlName="name_last"> 
+</form>
 
 <button [routerLink]="['/dashboard/user-profile']" routerLinkActive="router-link-active">Cancel Edit</button> <!-- disable if form is not pristine -->
