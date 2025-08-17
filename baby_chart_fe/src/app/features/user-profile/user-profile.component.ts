@@ -1,6 +1,9 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
 import { User } from '../../../shared/models/user';
+import { Router } from '@angular/router';
+import { initializeUserData } from '../../app.config';
+import { AuthenticationService } from '../../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,11 +15,10 @@ export class UserProfileComponent implements OnInit{
   user = signal<User | null>(null);
   userId!: number;
 
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService, private router: Router, private authService: AuthenticationService){}
 
   ngOnInit(): void {
+    this.userService.loadCurrentUserIfLoggedIn(this.authService)
     this.userService.currentUserSubject.subscribe((res) => this.user.set(res)) 
-    console.log(this.userService.currentUserSubject)
-    this.userService.currentUserSubject.subscribe(console.log)
   }
 }
