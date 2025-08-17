@@ -20,6 +20,10 @@ export const routes: Routes = [
         loadComponent: () => import('./features/user-profile/user-profile.component').then((c) => c.UserProfileComponent),
       },
       {
+        path: 'edit-user',
+        loadComponent: () => import('./features/edit-user/edit-user.component').then((c) => c.EditUserComponent),
+      },
+      {
         path: 'children',
         loadComponent: () => import('./features/children/children.component').then((c) => c.ChildrenComponent),
       }
