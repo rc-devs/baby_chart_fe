@@ -48,4 +48,8 @@ currentUserSubject = new BehaviorSubject<User | null>(null);
       })
     );
   }
+
+  updateUserData(user: User): Observable<User>{
+    return this.http.put<User>(`${environment.apiUrl}/users/${user.id}`, user)
+  }
 }
