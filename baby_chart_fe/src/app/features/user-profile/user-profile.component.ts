@@ -2,7 +2,6 @@ import { Component, OnInit, signal } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
 import { User } from '../../../shared/models/user';
 import { Router } from '@angular/router';
-import { initializeUserData } from '../../app.config';
 import { AuthenticationService } from '../../../shared/services/authentication.service';
 
 @Component({
