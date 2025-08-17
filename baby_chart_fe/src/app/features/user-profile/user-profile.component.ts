@@ -1,12 +1,12 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { UserService } from '../../../shared/services/user.service';
 import { User } from '../../../shared/models/user';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthenticationService } from '../../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
