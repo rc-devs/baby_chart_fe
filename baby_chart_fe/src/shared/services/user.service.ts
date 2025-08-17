@@ -23,7 +23,6 @@ currentUserSubject = new BehaviorSubject<User | null>(null);
   return firstValueFrom(this.getBootstrapData()).then(
     (user: User) => {
       this.setCurrentUser(user); //set currentUserSubject via method
-      console.log('User loaded:', user);
       return user;
     },
     (error) => {
