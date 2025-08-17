@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable, tap } from 'rxjs';
+import { AuthenticationService } from './authentication.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,27 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 export class UserService {
 currentUserSubject = new BehaviorSubject<User | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
+
+  
+  loadCurrentUserIfLoggedIn(authService: AuthenticationService): Promise<User | null> {
+  if (!authService.isLoggedIn()) {
+    return Promise.resolve(null);
+  }
+
+  return firstValueFrom(this.getBootstrapData()).then(
+    (user: User) => {
+      this.setCurrentUser(user);
+      console.log('User loaded:', user);
+      return user;
+    },
+    (error) => {
+      console.error('Failed to load user');
+      this.router.navigate(['/dashboard']);
+      return null;
+    }
+  );
+}
 
   clearCurrentUser(){
     this.currentUserSubject.next(null);
