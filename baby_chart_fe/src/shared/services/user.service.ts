@@ -12,6 +12,10 @@ currentUserSubject = new BehaviorSubject<User | null>(null);
 
   constructor(private http: HttpClient) {}
 
+  clearCurrentUser(){
+    this.currentUserSubject.next(null);
+  }
+
   setCurrentUser(user: User | null) {
     this.currentUserSubject.next(user);
   }
