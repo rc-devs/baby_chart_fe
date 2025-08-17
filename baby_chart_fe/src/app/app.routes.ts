@@ -18,6 +18,10 @@ export const routes: Routes = [
       {
         path: 'user-profile',
         loadComponent: () => import('./features/user-profile/user-profile.component').then((c) => c.UserProfileComponent),
+      },
+      {
+        path: 'children',
+        loadComponent: () => import('./features/children/children.component').then((c) => c.ChildrenComponent),
       }
     ]
 
