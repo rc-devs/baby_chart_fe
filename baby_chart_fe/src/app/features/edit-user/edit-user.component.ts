@@ -26,8 +26,21 @@ export class EditUserComponent {
   // should be in service
   ngOnInit(): void {
     this.userService.loadCurrentUserIfLoggedIn(this.authService) //get user data
-    this.userService.currentUserSubject.subscribe((res) => this.user.set(res)) //assign user data to signal for display in html
+    this.userService.currentUserSubject.subscribe((res) => {
+      this.user.set(res); //assign user data to signal for display in html 
+      if (res){ //if response successful, update form with returned values (which are assigned to user signal)
+        this.updateUserDataForm.patchValue(
+          {
+           user_name: this.user()?.username,
+           email: this.user()?.email,
+           name_first: this.user()?.name_first,
+           name_last: this.user()?.name_last,
+          }
+        )
+      }
+    }); 
   }
+  
 
   editUserHandler(){
     
