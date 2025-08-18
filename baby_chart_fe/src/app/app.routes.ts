@@ -30,7 +30,11 @@ export const routes: Routes = [
            {
         path: 'add-child',
         loadComponent: () => import('./features/children/add-child/add-child.component').then((c) => c.AddChildComponent),
-      }
+          },
+          {
+        path: 'child-card',
+        loadComponent: () => import('./features/children/child-card/child-card.component').then((c) => c.ChildCardComponent),
+          }
         ]
       }
     ]
