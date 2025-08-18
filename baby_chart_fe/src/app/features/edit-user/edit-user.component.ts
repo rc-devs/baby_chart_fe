@@ -56,8 +56,7 @@ export class EditUserComponent {
     }
 
     this.userService.updateUserData(user).subscribe({
-      next: (updatedUser) => {
-        console.log("User updated: ", updatedUser) //test log
+      next: (updatedUser) => { //do not utilize response (user data) as it is set oninit in user-profile
         this.updateUserDataForm.reset(); // reset form (redundant on navigation, possibly dangerous without)
         this.router.navigate(['/dashboard/user-profile']); //navigate back to profile
       },
