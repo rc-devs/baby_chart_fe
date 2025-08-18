@@ -1,0 +1,7 @@
+<h4>User</h4>
+  <p>Username: {{user()?.username}}</p>
+  <p>Email: {{user()?.email}}</p>
+  <p>First Name: {{user()?.name_first}}</p>
+  <p>Last Name: {{user()?.name_last}}</p>
+
+  <button [routerLink]="['/dashboard/edit-user']">Edit Your Information</button>

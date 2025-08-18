@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import { UserService } from './user.service';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ import { environment } from '../../environments/environment.development';
 export class AuthenticationService {
   private readonly tokenSubject = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private userService: UserService) { }
 
   signUp(name_first: string, name_last: string, email: string, username: string, password:string, password_confirmation:string){
     return this.http.post(`${environment.apiUrl}/users`, {
@@ -46,8 +48,9 @@ export class AuthenticationService {
   }
 
   logout(){
+    this.userService.clearCurrentUser();
     localStorage.removeItem('authToken');
 		this.tokenSubject.next(null);
-		//this.router.navigate(['navbar'])
+		this.router.navigate(['/login'])
   }
 }
