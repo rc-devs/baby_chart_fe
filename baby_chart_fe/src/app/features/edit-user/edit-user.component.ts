@@ -45,6 +45,7 @@ export class EditUserComponent {
   
 
   editUserHandler(){
+    confirm("These changes cannot be reversed. Are you sure you are ready to submit?")
     console.log('edit handler fires')
 
     let user = {
