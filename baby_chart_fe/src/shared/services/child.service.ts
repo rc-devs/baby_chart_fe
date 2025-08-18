@@ -17,4 +17,8 @@ export class ChildService {
       date_of_birth
     })
   }
+
+  indexChildren(){
+    return this.http.get<Child[]>(`${environment.apiUrl}/children`)
+  }
 }
