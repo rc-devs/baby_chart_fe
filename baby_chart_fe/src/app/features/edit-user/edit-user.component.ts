@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../../shared/services/user.service';
 import { User } from '../../../shared/models/user';
 import { AuthenticationService } from '../../../shared/services/authentication.service';
@@ -14,7 +14,7 @@ import { AuthenticationService } from '../../../shared/services/authentication.s
 export class EditUserComponent {
   user = signal<User | null>(null); // should be in service
 
-  constructor(private userService: UserService, private authService: AuthenticationService){}
+  constructor(private userService: UserService, private authService: AuthenticationService, private router: Router){}
 
   updateUserDataForm = new FormGroup({
     id: new FormControl (this.user()?.id, Validators.required),
@@ -46,5 +46,25 @@ export class EditUserComponent {
 
   editUserHandler(){
     console.log('edit handler fires')
+
+    let user = {
+      id: this.updateUserDataForm.value.id!,
+      username: this.updateUserDataForm.value.username!,
+      email: this.updateUserDataForm.value.email!,
+      name_first: this.updateUserDataForm.value.name_first!,
+      name_last: this.updateUserDataForm.value.name_last!,
+    }
+
+    this.userService.updateUserData(user).subscribe({
+      next: (updatedUser) => {
+        console.log("User updated: ", updatedUser) //test log
+        this.updateUserDataForm.reset(); // reset form (redundant on navigation, possibly dangerous without)
+        this.router.navigate(['/dashboard/user-profile']); //navigate back to profile
+      },
+      error(err){
+        alert("There was some sort of error")
+        console.log(err)
+      }
+    })
   }
 }
