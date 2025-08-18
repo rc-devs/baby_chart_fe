@@ -1,1 +1,6 @@
-<p>child-card works!</p>
+@for (c of children(); track c.child_name){
+  <div class="child-card">
+    <p>{{c.child_name}}</p>
+    <p>{{c.date_of_birth}}</p>
+  </div>
+}
