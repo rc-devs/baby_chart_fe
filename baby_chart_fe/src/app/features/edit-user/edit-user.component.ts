@@ -17,7 +17,8 @@ export class EditUserComponent {
   constructor(private userService: UserService, private authService: AuthenticationService){}
 
   updateUserDataForm = new FormGroup({
-    user_name: new FormControl ( this.user()?.username, Validators.required),
+    id: new FormControl (this.user()?.id, Validators.required),
+    username: new FormControl ( this.user()?.username, Validators.required),
     email: new FormControl ( this.user()?.email, Validators.required),
     name_first: new FormControl ( this.user()?.name_first, Validators.required),
     name_last: new FormControl ( this.user()?.name_last, Validators.required),
@@ -31,7 +32,8 @@ export class EditUserComponent {
       if (res){ //if response successful, update form with returned values (which are assigned to user signal)
         this.updateUserDataForm.patchValue(
           {
-           user_name: this.user()?.username,
+           id: this.user()!.id,
+           username: this.user()?.username,
            email: this.user()?.email,
            name_first: this.user()?.name_first,
            name_last: this.user()?.name_last,
