@@ -1,1 +1,6 @@
-<p>add-child works!</p>
+<form [formGroup]="addChildForm" >
+  <label for="child_name">Child's First Name</label>
+    <input type="text" [formControl]="addChildForm.controls.child_name">
+  <label for="date_of_birth">Date of Birth</label>
+    <input type="date" [formControl]="addChildForm.controls.date_of_birth" placeholder="">
+</form>
