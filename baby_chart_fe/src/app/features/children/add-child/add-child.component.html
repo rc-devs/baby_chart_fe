@@ -1,4 +1,4 @@
-<form [formGroup]="addChildForm" >
+<form [formGroup]="addChildForm" (ngSubmit)="addChildHandler()" >
   <label for="child_name">Child's First Name</label>
     <input type="text" [formControl]="addChildForm.controls.child_name">
   <label for="date_of_birth">Date of Birth</label>
