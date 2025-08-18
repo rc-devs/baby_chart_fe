@@ -26,6 +26,12 @@ export const routes: Routes = [
       {
         path: 'children',
         loadComponent: () => import('./features/children/children.component').then((c) => c.ChildrenComponent),
+        children: [
+           {
+        path: 'add-child',
+        loadComponent: () => import('./features/children/add-child/add-child.component').then((c) => c.AddChildComponent),
+      }
+        ]
       }
     ]
 
