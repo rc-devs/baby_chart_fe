@@ -1,13 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Child } from '../models/child';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChildService {
 
-  constructor() { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  createChild(){
-    return this.
+   createChild(child_name:string, date_of_birth:Date){
+    return this.http.post<Child>(`${environment.apiUrl}/children`, {
+      child_name,
+      date_of_birth
+    })
   }
 }
