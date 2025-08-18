@@ -1,6 +1,6 @@
 <form [formGroup]="updateUserDataForm" (ngSubmit)="editUserHandler()">
-  <label for="user_name">Update username</label>
-    <input type="text" name="user_name" [formControl]="updateUserDataForm.controls.user_name">
+  <label for="username">Update username</label>
+    <input type="text" name="username" [formControl]="updateUserDataForm.controls.username">
   <label for="email">Update email</label>
     <input type="email" name="email" [formControl]="updateUserDataForm.controls.email">
   <label for="name_first">Update first name</label>
