@@ -11,6 +11,6 @@ export class AddChildComponent {
 
   addChildForm = new FormGroup({
     child_name: new FormControl ('', [Validators.required]),
-    date_of_birth: new FormControl (Date, [Validators.required])
+    date_of_birth: new FormControl (null, [Validators.required])
   })
 }
