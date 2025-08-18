@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-children',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './children.component.html',
   styleUrl: './children.component.css'
 })
