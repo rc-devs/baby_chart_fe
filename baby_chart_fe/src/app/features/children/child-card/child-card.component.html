@@ -16,8 +16,8 @@
       <label for="date_of_birth">Child DOB: </label>
         <input type="date" [formControl]="editChildForm.controls.date_of_birth">
       <button type="submit">Submit</button>
-      <button (click)="cancelEditHandler()">Cancel</button>
       <button class="btn-danger" (click)="deleteHandler(childToEdit!.child_name, childToEdit!.id)">Delete</button>
+      <button (click)="cancelEditHandler()">Cancel</button>
     </form> 
   </div>
 }
