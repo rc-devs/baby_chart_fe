@@ -87,5 +87,4 @@ export class ChildCardComponent implements OnInit{
       }
     })
   }
-    // if success, route to current-children
 }
