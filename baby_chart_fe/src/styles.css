@@ -3,6 +3,14 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.btn-danger {
+  background-color: red;
+}
+
+.btn-danger:hover {
+  background-color: rgb(187, 70, 70);
+}
+
 .child-card {
   border: 2px solid black;
 }
