@@ -21,7 +21,7 @@ export const routes: Routes = [
       },
       {
         path: 'edit-user',
-        loadComponent: () => import('./features/edit-user/edit-user.component').then((c) => c.EditUserComponent),
+        loadComponent: () => import('./features/user-profile/edit-user/edit-user.component').then((c) => c.EditUserComponent),
       },
       {
         path: 'children',

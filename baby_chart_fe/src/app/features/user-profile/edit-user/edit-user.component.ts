@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { UserService } from '../../../shared/services/user.service';
-import { User } from '../../../shared/models/user';
-import { AuthenticationService } from '../../../shared/services/authentication.service';
+import { UserService } from '../../../../shared/services/user.service';
+import { User } from '../../../../shared/models/user';
+import { AuthenticationService } from '../../../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-edit-user',
