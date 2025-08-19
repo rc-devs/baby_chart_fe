@@ -1,6 +1,8 @@
 @for (c of children(); track c.child_name){
   <div class="child-card">
-    <p>{{c.child_name}}</p>
-    <p>{{c.date_of_birth}}</p>
+    <p>Child ID: {{c.id}} (remove me before deploy)</p><!-- remove before deploy -->
+    <p>Child Name: {{c.child_name}}</p>
+    <p>Child DOB: {{c.date_of_birth}}</p>
+    <p>User [parent] id: {{c.user_id}} (remove me before deploy)</p> <!-- remove before deploy -->
   </div>
 }
