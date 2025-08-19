@@ -21,7 +21,6 @@ export class AddChildComponent {
   addChildHandler(){
     this.childService.createChild(this.addChildForm.value.child_name!, this.addChildForm.value.date_of_birth!).subscribe({
       next: (createdChild) => {
-        console.log(createdChild) 
         this.addChildForm.reset(); // reset form (redundant on navigation, possibly dangerous without if user submits empty form?)
         this.router.navigate(['/dashboard/children/child-card']); 
       },
