@@ -10,7 +10,7 @@
 } @else {
   <div class="child-card">
     <!-- make reactive form. string interpolate input placeholders -->
-    <form [formGroup]="editChildForm">
+    <form [formGroup]="editChildForm" (ngSubmit)="editChildHandler(childToEdit!.id)">
       <label for="child_name">Child Name: </label>
         <input type="text" [formControl]="editChildForm.controls.child_name">
       <label for="date_of_birth">Child DOB: </label>
