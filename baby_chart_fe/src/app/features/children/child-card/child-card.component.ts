@@ -4,10 +4,11 @@ import { Child } from '../../../../shared/models/child';
 import { UserService } from '../../../../shared/services/user.service';
 import { AuthenticationService } from '../../../../shared/services/authentication.service';
 import { User } from '../../../../shared/models/user';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-child-card',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './child-card.component.html',
   styleUrl: './child-card.component.css'
 })
@@ -17,8 +18,12 @@ export class ChildCardComponent implements OnInit{
   displayEditCard = signal<boolean>(false);
   childToEdit: Child | null = null;
 
-  
   constructor(private childService: ChildService, private userService: UserService, private authService: AuthenticationService){}
+
+  editChildForm = new FormGroup({
+    child_name: new FormControl ('', [Validators.required]),
+    date_of_birth: new FormControl (null, [Validators.required])
+  })
 
   ngOnInit(): void {
     this.userService.loadCurrentUserIfLoggedIn(this.authService); //get user data (if not, must visit profile or list does not load)

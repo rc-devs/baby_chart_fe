@@ -10,10 +10,14 @@
 } @else {
   <div class="child-card">
     <!-- make reactive form. string interpolate input placeholders -->
-    <p>Child Name: {{childToEdit!.child_name}}</p>
-    <p>Child DOB: {{childToEdit!.date_of_birth}}</p>
-    <button type="submit">Submit</button>
-    <button (click)="cancelEditHandler()">Cancel</button>
-    <button class="btn-danger" (click)="deleteHandler(childToEdit!.child_name, childToEdit!.id)">Delete</button> 
+    <form [formGroup]="editChildForm">
+      <label for="child_name">Child Name: </label>
+        <input type="text" [formControl]="editChildForm.controls.child_name">
+      <label for="date_of_birth">Child DOB: </label>
+        <input type="date" [formControl]="editChildForm.controls.date_of_birth">
+      <button type="submit">Submit</button>
+      <button (click)="cancelEditHandler()">Cancel</button>
+      <button class="btn-danger" (click)="deleteHandler(childToEdit!.child_name, childToEdit!.id)">Delete</button>
+    </form> 
   </div>
 }
