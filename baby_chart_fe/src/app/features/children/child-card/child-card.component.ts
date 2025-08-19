@@ -63,7 +63,7 @@ export class ChildCardComponent implements OnInit{
       this.childService.indexChildren(this.user()!.id).subscribe({
         next: (children) => {
           this.children.set(children);
-          this.displayEditCard.set(!this.displayEditCard());
+          this.displayEditCard.set(this.displayEditCard());
         },
         error: (err) => console.error('Error fetching children:', err),
       });
