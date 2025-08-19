@@ -21,4 +21,8 @@ export class ChildService {
   indexChildren(user_id: number){
     return this.http.get<Child[]>(`${environment.apiUrl}/children?id=${user_id}`)
   }
+
+  deleteChild(child_id: number){
+  return this.http.delete<Child>(`${environment.apiUrl}/children/${child_id}`);
+  }
 }
