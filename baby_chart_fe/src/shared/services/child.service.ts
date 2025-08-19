@@ -18,7 +18,7 @@ export class ChildService {
     })
   }
 
-  indexChildren(){
-    return this.http.get<Child[]>(`${environment.apiUrl}/children`)
+  indexChildren(user_id: number){
+    return this.http.get<Child[]>(`${environment.apiUrl}/children?id=${user_id}`)
   }
 }
