@@ -44,8 +44,26 @@ export class ChildCardComponent implements OnInit{
     this.displayEditCard.set(!this.displayEditCard());
   }
 
-  //deleteHandler
+  deleteHandler(child_name:string, id:number){
     //include confirm as it is a destructive action
+    confirm(`This action cannot be undone. Are you sure you want to delete ${child_name}?`)
+
+    //submit child id to backend, on response, refresh children, reset displayEditCard
+    this.childService.deleteChild(id).subscribe({
+    next: (child) => {
+      console.log(`${child} deleted`);
+
+      this.childService.indexChildren(this.user()!.id).subscribe({
+        next: (children) => {
+          this.children.set(children);
+          this.displayEditCard.set(!this.displayEditCard());
+        },
+        error: (err) => console.error('Error fetching children:', err),
+      });
+    },
+    error: (err) => console.error('Error deleting child:', err),
+  });
+   }
 
   //submitHandler
     // if success, route to current-children
