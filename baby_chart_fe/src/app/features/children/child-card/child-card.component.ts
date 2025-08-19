@@ -50,7 +50,7 @@ export class ChildCardComponent implements OnInit{
   }
 
   cancelEditHandler(){
-    this.displayEditCard.set(!this.displayEditCard());
+    this.displayEditCard.set(this.displayEditCard());
   }
 
   deleteHandler(child_name:string, id:number){
@@ -60,8 +60,6 @@ export class ChildCardComponent implements OnInit{
     //submit child id to backend, on response, refresh children, reset displayEditCard
     this.childService.deleteChild(id).subscribe({
     next: (child) => {
-      console.log(`${child} deleted`);
-
       this.childService.indexChildren(this.user()!.id).subscribe({
         next: (children) => {
           this.children.set(children);
@@ -76,8 +74,7 @@ export class ChildCardComponent implements OnInit{
 
   editChildHandler(child_id: number){
     this.childService.editChild(this.editChildForm.value.child_name!, this.editChildForm.value.date_of_birth!, child_id).subscribe({
-      next: (updateChild) => {
-        console.log(updateChild) 
+      next: (updatedChild) => {
         this.editChildForm.reset(); // reset form (redundant on display, possibly dangerous without if user submits empty form?)
          this.displayEditCard.set(!this.displayEditCard()); 
       },
