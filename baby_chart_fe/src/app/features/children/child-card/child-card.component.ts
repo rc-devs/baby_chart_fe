@@ -43,6 +43,10 @@ export class ChildCardComponent implements OnInit{
   editChildHandler(c: Child){
     this.displayEditCard.set(!this.displayEditCard());
     this.childToEdit = c
+
+    this.editChildForm.patchValue({
+      child_name: c.child_name,
+    })
   }
 
   cancelEditHandler(){
