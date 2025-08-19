@@ -35,11 +35,11 @@ export const routes: Routes = [
         path: 'child-card',
         loadComponent: () => import('./features/children/child-card/child-card.component').then((c) => c.ChildCardComponent),
         children: [
-          {
-        path: 'chart',
-        loadComponent: () => import('./features/children/child-card/chart/chart.component').then((c) => c.ChartComponent),
-          }
-        ]
+              {
+            path: 'chart',
+            loadComponent: () => import('./features/children/child-card/chart/chart.component').then((c) => c.ChartComponent),
+              }
+            ]
           }
         ]
       }
