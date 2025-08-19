@@ -44,6 +44,9 @@ export class ChildCardComponent implements OnInit{
     this.displayEditCard.set(!this.displayEditCard());
   }
 
-  //delete button
+  //deleteHandler
     //include confirm as it is a destructive action
+
+  //submitHandler
+    // if success, route to current-children
 }
