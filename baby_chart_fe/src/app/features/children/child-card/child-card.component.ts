@@ -73,8 +73,16 @@ export class ChildCardComponent implements OnInit{
    }
 
   editChildHandler(child_id: number){
-    this.childService.editChild(this.editChildForm.value.child_name!, this.editChildForm.value.date_of_birth!, child_id);
-    this.editChildForm.reset(); // reset form (redundant on display, possibly dangerous without if user submits empty form?)
-    this.displayEditCard.set(!this.displayEditCard()); 
+    this.childService.editChild(this.editChildForm.value.child_name!, this.editChildForm.value.date_of_birth!, child_id).subscribe({
+      next: (updatedChild) => {
+        this.childService.indexChildren(this.user()!.id).subscribe((children) => this.children.set(children))
+        this.editChildForm.reset(); // reset form (redundant on display, possibly dangerous without if user submits empty form?)
+         this.displayEditCard.set(!this.displayEditCard()); 
+      },
+      error(err){
+        alert("There was some sort of error")
+        console.log(err)
+      }
+    })
   }
 }
