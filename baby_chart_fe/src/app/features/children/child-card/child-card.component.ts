@@ -14,6 +14,9 @@ import { User } from '../../../../shared/models/user';
 export class ChildCardComponent implements OnInit{
   children: WritableSignal<Child[]> = signal<Child[]>([]);
   user = signal<User | null>(null); // should be in service
+  displayEditCard = signal<boolean>(false);
+  childToEdit: Child | null = null;
+
   
   constructor(private childService: ChildService, private userService: UserService, private authService: AuthenticationService){}
 
@@ -31,4 +34,16 @@ export class ChildCardComponent implements OnInit{
     }
   ); 
   }
+
+  editChildHandler(c: Child){
+    this.displayEditCard.set(!this.displayEditCard());
+    this.childToEdit = c
+  }
+
+  cancelEditHandler(){
+    this.displayEditCard.set(!this.displayEditCard());
+  }
+
+  //delete button
+    //include confirm as it is a destructive action
 }

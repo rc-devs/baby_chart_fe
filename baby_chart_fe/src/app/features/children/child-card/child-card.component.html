@@ -1,6 +1,19 @@
-@for (c of children(); track c.child_name){
+@if (!displayEditCard()){
+  @for (c of children(); track c.child_name){
+    <div class="child-card">
+      <p>Child Name: {{c.child_name}}</p>
+      <p>Child DOB: {{c.date_of_birth}}</p>
+      <button (click)="editChildHandler(c)">Edit</button>
+      <button>Chart</button> <!-- display chart -->
+    </div>
+  }
+} @else {
   <div class="child-card">
-    <p>Child Name: {{c.child_name}}</p>
-    <p>Child DOB: {{c.date_of_birth}}</p>
+    <!-- make reactive form. string interpolate input placeholders -->
+    <p>Child Name: {{childToEdit!.child_name}}</p>
+    <p>Child DOB: {{childToEdit!.date_of_birth}}</p>
+    <button type="submit">Submit</button>
+    <button (click)="cancelEditHandler()">Cancel</button>
+    <button class="btn-danger">Delete</button> <!-- complete delete button -->
   </div>
 }
