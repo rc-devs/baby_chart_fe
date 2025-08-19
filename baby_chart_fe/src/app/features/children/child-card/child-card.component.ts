@@ -31,8 +31,4 @@ export class ChildCardComponent implements OnInit{
     }
   ); 
   }
-
-  /* childrenIndexHandler(){
-    this.childService.indexChildren()
-  } */
 }
