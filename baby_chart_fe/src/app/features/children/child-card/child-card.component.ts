@@ -5,10 +5,11 @@ import { UserService } from '../../../../shared/services/user.service';
 import { AuthenticationService } from '../../../../shared/services/authentication.service';
 import { User } from '../../../../shared/models/user';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-child-card',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterModule, RouterOutlet],
   templateUrl: './child-card.component.html',
   styleUrl: './child-card.component.css'
 })

@@ -4,8 +4,9 @@
       <p>Child Name: {{c.child_name}}</p>
       <p>Child DOB: {{c.date_of_birth}}</p>
       <button (click)="displayChildToEdit(c)">Edit</button>
-      <button>Chart</button> <!-- display chart -->
+      <button [routerLink]="['/dashboard/children/child-card/chart']">Chart</button> <!-- display chart -->
     </div>
+    <router-outlet></router-outlet>
   }
 } @else {
   <div class="child-card">
