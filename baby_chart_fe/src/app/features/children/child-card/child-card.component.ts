@@ -40,7 +40,7 @@ export class ChildCardComponent implements OnInit{
   ); 
   }
 
-  editChildHandler(c: Child){
+  displayChildToEdit(c: Child){
     this.displayEditCard.set(!this.displayEditCard());
     this.childToEdit = c
 
