@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, signal, WritableSignal } from '@angular/core';
 import { ChildService } from '../../../../shared/services/child.service';
 import { Child } from '../../../../shared/models/child';
 import { UserService } from '../../../../shared/services/user.service';
@@ -6,18 +6,22 @@ import { AuthenticationService } from '../../../../shared/services/authenticatio
 import { User } from '../../../../shared/models/user';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { ChartComponent } from './chart/chart.component';
 
 @Component({
   selector: 'app-child-card',
-  imports: [ReactiveFormsModule, RouterModule, RouterOutlet],
+  imports: [ReactiveFormsModule, RouterModule, RouterOutlet, ChartComponent],
   templateUrl: './child-card.component.html',
   styleUrl: './child-card.component.css'
 })
 export class ChildCardComponent implements OnInit{
+  @Input() childIdForChart = new EventEmitter<number>
+
   children: WritableSignal<Child[]> = signal<Child[]>([]);
   user = signal<User | null>(null); // should be in service
   displayEditCard = signal<boolean>(false);
   childToEdit: Child | null = null;
+  selectedChild: Child | null = null;
 
   constructor(private childService: ChildService, private userService: UserService, private authService: AuthenticationService){}
 
@@ -39,6 +43,10 @@ export class ChildCardComponent implements OnInit{
       return null;
     }
   ); 
+  }
+
+  passChildObject(c: Child) {
+    this.selectedChild = c
   }
 
   displayChildToEdit(c: Child){
