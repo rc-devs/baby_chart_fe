@@ -36,6 +36,7 @@ export class ChildCardComponent implements OnInit{
       this.user.set(res); //assign user data to signal for display in html 
       if (res){ //if response successful, update form with returned values (which are assigned to user signal)
        this.childService.indexChildren(this.user()!.id).subscribe((children) => this.children.set(children))
+       this.passChildObject(this.selectedChild!)
       }
     },
      (error) => {
