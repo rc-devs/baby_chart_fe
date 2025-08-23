@@ -15,7 +15,7 @@ import { ChartComponent } from './chart/chart.component';
   styleUrl: './child-card.component.css'
 })
 export class ChildCardComponent implements OnInit{
-  @Input() childIdForChart = new EventEmitter<number>
+  @Input() child!: Child;
 
   children: WritableSignal<Child[]> = signal<Child[]>([]);
   user = signal<User | null>(null); // should be in service

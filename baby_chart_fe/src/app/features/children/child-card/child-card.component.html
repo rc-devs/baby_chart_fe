@@ -4,7 +4,7 @@
       <p>Child Name: {{c.child_name}}</p>
       <p>Child DOB: {{c.date_of_birth}}</p>
       <button (click)="displayChildToEdit(c)">Edit</button>
-      <app-chart [child]="selectedChild" (chartEvent)="passChildObject(c)"></app-chart>
+      <app-chart [child]="(c)"></app-chart>
     </div>
   }
 } @else {
