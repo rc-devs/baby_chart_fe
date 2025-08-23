@@ -9,7 +9,7 @@ export class ChartService {
 
   //show chart/entries
 
-  showChartHandler(){
+  showChart(){
     
   }
 }
