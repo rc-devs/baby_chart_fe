@@ -1,4 +1,10 @@
-<p>chart works!</p>
-<p>Chart Id: {{chart()?.id}}</p>
-<p>{{chart()?.date}}</p>
-<p>{{chart()?.entries}}</p>
+@if (chart()) {
+  <p>Chart works! </p>
+    <p>Chart ID: {{ chart()?.id }} </p>
+    <p>Date: {{ chart()?.date }} </p>
+    <p>Entries: {{ chart()?.entries }}</p>
+}
+@else {
+  <p>No chart data available.</p>
+  <button (click)="showChartHandler()">Refresh</button>
+}
