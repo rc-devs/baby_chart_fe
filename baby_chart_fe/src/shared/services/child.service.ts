@@ -19,7 +19,7 @@ export class ChildService {
   }
 
   indexChildren(user_id: number){
-    return this.http.get<Child[]>(`${environment.apiUrl}/children?id=${user_id}`)
+     return this.http.get<Child[]>(`${environment.apiUrl}/children?id=${user_id}?include=chart`);
   }
 
   deleteChild(child_id: number){
