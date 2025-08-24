@@ -1,7 +1,6 @@
 @if (chart()) {
-  <p>Chart works! </p>
     <p>Chart ID: {{ chart()?.id }} </p>
-    <p>Date: {{ chart()?.date }} </p>
+    <p>Date Initiated: {{ chart()?.date }} </p>
     <p>Entries: {{ chart()?.entries }}</p>
 }
 @else {
