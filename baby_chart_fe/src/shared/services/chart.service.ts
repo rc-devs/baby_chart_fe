@@ -13,6 +13,7 @@ export class ChartService {
   //show chart/entries
 
   showChart(chart_id: number){
+    console.log("chart service show chart fires")
     return this.http.get<Chart>(`${environment.apiUrl}/charts/${chart_id}`)
   }
 }
