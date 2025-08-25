@@ -1,16 +1,19 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '../shared/guards/auth.guard';
+import { noAuthGuard } from '../shared/guards/no-auth.guard';
 
 export const routes: Routes = [
   
   {path: '', redirectTo: '/login', pathMatch: 'full' }, // set as dashboard when auth guards set
   {
     path: 'login',
-    loadComponent: () => import('./core/login/login.component').then((c) => c.LoginComponent)
+    loadComponent: () => import('./core/login/login.component').then((c) => c.LoginComponent),
+    canActivate: [noAuthGuard]
   },
   {
     path: 'sign-up',
-    loadComponent: () => import('./core/sign-up/sign-up.component').then((c) => c.SignUpComponent)
+    loadComponent: () => import('./core/sign-up/sign-up.component').then((c) => c.SignUpComponent),
+    canActivate: [noAuthGuard]
   },
   {
     path: 'dashboard',
