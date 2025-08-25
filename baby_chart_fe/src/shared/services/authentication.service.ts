@@ -43,7 +43,7 @@ export class AuthenticationService {
     return localStorage.getItem('authToken')
   }
 
-   isLoggedIn(){
+   isLoggedIn(){ //utilize in authGuard
     return !!this.getToken() // !! converts to a boolean wowzers
   }
 
