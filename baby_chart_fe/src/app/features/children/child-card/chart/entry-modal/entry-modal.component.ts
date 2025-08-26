@@ -37,4 +37,14 @@ export class EntryModalComponent {
       })
     }
   )
+
+  submitEntryHandler(): void{
+    if (this.newEntryForm.valid){
+      this.dialogRef.close(this.newEntryForm.value)
+    }
+  }
+
+  onCancel(): void {
+    this.dialogRef.close();
+  }
 }
