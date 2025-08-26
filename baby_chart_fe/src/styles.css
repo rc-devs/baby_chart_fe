@@ -14,3 +14,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .child-card {
   border: 2px solid black;
 }
+
+.modal{
+  background-color: white;
+  padding: 2em;
+  margin: 2em
+}
+
+.nested-group {
+  border: black 2px solid;
+  padding: 2em;
+}
