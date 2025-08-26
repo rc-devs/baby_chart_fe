@@ -28,7 +28,7 @@ export class EntryModalComponent {
       feedingDetails: new FormGroup({
         bottle: new FormControl(false),
         breast: new FormControl(false),
-        amount: new FormControl<number | null>(null, [
+        amount: new FormControl(0, [
           Validators.min(0),
           Validators.required
         ])
