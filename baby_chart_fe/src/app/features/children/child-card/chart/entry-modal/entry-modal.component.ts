@@ -19,7 +19,7 @@ export class EntryModalComponent {
      time: new FormControl(new Date().toISOString(), Validators.required), // or time when submitted
      medicationBool: new FormControl(false),
      medicationDetails: new FormGroup({
-      medication: new FormControl('', Validators.required),
+      medication: new FormControl('', /* Validators.required */),
      }),
      bath: new FormControl(false),
      comments: new FormControl(''), 
@@ -30,7 +30,7 @@ export class EntryModalComponent {
         breast: new FormControl(false),
         amount: new FormControl(0, [
           Validators.min(0),
-          Validators.required
+          /* Validators.required */
         ])
       }),
     diaper: new FormControl(false),
