@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-entry-modal',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule],
   templateUrl: './entry-modal.component.html',
   styleUrl: './entry-modal.component.css'
 })
@@ -13,7 +16,7 @@ export class EntryModalComponent {
   constructor(public dialogRef: MatDialogRef<EntryModalComponent>) {}
 
   newEntryForm = new FormGroup({
-     time: new FormControl(Date.UTC.toString, Validators.required), // or time when submitted
+     time: new FormControl(new Date().toISOString(), Validators.required), // or time when submitted
      medication: new FormControl(''),
      bath: new FormControl(false),
      comments: new FormControl(''), 
