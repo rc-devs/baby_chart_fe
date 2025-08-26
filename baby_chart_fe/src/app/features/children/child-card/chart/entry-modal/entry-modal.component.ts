@@ -41,6 +41,7 @@ export class EntryModalComponent {
     }
   )
 
+  //this needs to send to chart or to entry service right??
   submitEntryHandler(): void{
     if (this.newEntryForm.valid){
       this.dialogRef.close(this.newEntryForm.value)
