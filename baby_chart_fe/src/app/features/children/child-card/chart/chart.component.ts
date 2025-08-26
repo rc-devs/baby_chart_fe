@@ -3,6 +3,8 @@ import { ChartService } from '../../../../../shared/services/chart.service';
 import { Chart } from '../../../../../shared/models/chart';
 import { Child } from '../../../../../shared/models/child';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { EntryModalComponent } from './entry-modal/entry-modal.component';
 
 @Component({
   selector: 'app-chart',
@@ -14,7 +16,7 @@ export class ChartComponent implements OnInit, OnChanges{
   @Input() child: Child | null = null;
   chart: WritableSignal<Chart | null> = signal<Chart | null>(null);
 
-  constructor(private chartService: ChartService){}
+  constructor(private chartService: ChartService, private dialog: MatDialog){}
 
   ngOnInit(): void {
      console.log("child: ", this.child)
@@ -27,6 +29,21 @@ export class ChartComponent implements OnInit, OnChanges{
       this.chart.set(this.child.chart);
       console.log("Chart updated:", this.chart());
     }
+  }
+
+  openEntryModal(){
+    const dialogRef = this.dialog.open(EntryModalComponent, {
+      height: '400px',
+      width: '600px',
+      data: {}
+    });
+
+    // needs to submit to service then to entries controller?
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        //this.chart()?.entries.push({ ...result, id: Date.now() });
+      }
+    });
   }
 
   showChartHandler() {
