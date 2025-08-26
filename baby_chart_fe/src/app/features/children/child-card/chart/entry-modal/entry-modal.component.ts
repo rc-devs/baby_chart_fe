@@ -17,7 +17,10 @@ export class EntryModalComponent {
 
   newEntryForm = new FormGroup({
      time: new FormControl(new Date().toISOString(), Validators.required), // or time when submitted
-     medication: new FormControl(''),
+     medicationBool: new FormControl(false),
+     medicationDetails: new FormGroup({
+      medication: new FormControl('', Validators.required),
+     }),
      bath: new FormControl(false),
      comments: new FormControl(''), 
      feeding: new FormControl(false),

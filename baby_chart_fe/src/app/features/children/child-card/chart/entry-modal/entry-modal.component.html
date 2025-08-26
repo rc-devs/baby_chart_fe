@@ -41,10 +41,16 @@
      }
 
     <!-- medication -->
-    <mat-form-field appearance="outline">
-      <mat-label>Medication?</mat-label>
-      <input matInput formControlName="medication" type="text"/>
-    </mat-form-field>
+    <mat-checkbox formControlName="medicationBool">Medication</mat-checkbox>
+    @if (newEntryForm.get('medicationBool')?.value){
+      <div formGroupName="medicationDetails" class="nested-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Medication Name and Dose</mat-label>
+          <input matInput formControlName="medication" type="text"/>
+        </mat-form-field>
+      </div>
+    }
+    
     
     <!-- comments -->
     <mat-form-field appearance="outline" class="full-width">
