@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>New Entry <!-- maybe dynamic child name "new entry for {{child}}" --></h2>
-<div mat-dialog-content>
+<div mat-dialog-content class="modal">
   <form [formGroup]="newEntryForm" (ngSubmit)="submitEntryHandler()">
     <!-- main field -->
     <mat-form-field appearance="outline">
@@ -10,42 +10,45 @@
       <mat-label>Medication</mat-label>
       <input matInput formControlName="medication" type="text"/>
     </mat-form-field>
-    <mat-form-field appearance="outline">
       <mat-checkbox formControlName="bath">Bath Given</mat-checkbox>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-checkbox formControlName="feeding">Feeding</mat-checkbox>
-    </mat-form-field>
-    <mat-form-field appearance="outline"> 
-      <mat-checkbox formControlName="diaper">Diaper</mat-checkbox>
-    </mat-form-field>
+      
+      
+   
 
     <!-- feeding details -->
-    <div formGroupName="feedingDetails" class="nested-group">
-      <mat-checkbox formControlName="bottle">Bottle</mat-checkbox>
-      <mat-checkbox formControlName="breast">Breast</mat-checkbox>
-      
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Amount (liquid ounces)</mat-label>
-        <input matInput type="number" formControlName="amount">
-      </mat-form-field>
-    </div>
+     <mat-checkbox formControlName="feeding">Feeding</mat-checkbox>
+     @if (newEntryForm.get('feeding')?.value){ <!-- gets value from above checkbox -->
+      <div formGroupName="feedingDetails" class="nested-group">
+        <mat-checkbox formControlName="bottle">Bottle</mat-checkbox>
+        <mat-checkbox formControlName="breast">Breast</mat-checkbox>
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Amount (liquid ounces)</mat-label>
+          <input matInput type="number" formControlName="amount">
+        </mat-form-field>
+      </div>
+     } 
+    
 
     <!-- diaper details -->
-    <div formGroupName="diaperDetails" class="nested-group">
-      <mat-checkbox formControlName="dirty">Dirty</mat-checkbox>
-      <mat-checkbox formControlName="wet">Wet</mat-checkbox>
+     <mat-checkbox formControlName="diaper">Diaper</mat-checkbox>
+     @if (newEntryForm.get('diaper')?.value){ <!-- gets value from above checkbox -->
+      <div formGroupName="diaperDetails" class="nested-group">
+        <mat-checkbox formControlName="dirty">Dirty</mat-checkbox>
+        <mat-checkbox formControlName="wet">Wet</mat-checkbox>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Color</mat-label>
-        <input matInput formControlName="color">
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Color</mat-label>
+          <input matInput formControlName="color">
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Consistency</mat-label>
-        <input matInput formControlName="consistency">
-      </mat-form-field>
-    </div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Consistency</mat-label>
+          <input matInput formControlName="consistency">
+        </mat-form-field>
+      </div>
+     }
+    
 
     <!-- comments -->
     <mat-form-field appearance="outline" class="full-width">
