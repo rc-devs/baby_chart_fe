@@ -4,24 +4,16 @@
     <!-- main field -->
     <mat-form-field appearance="outline">
       <mat-label>Time</mat-label>
-      <input matInput formControlName="time" type="datetime-local"/>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Medication</mat-label>
-      <input matInput formControlName="medication" type="text"/>
+      <input matInput formControlName="time" type="datetime"/>
     </mat-form-field>
       <mat-checkbox formControlName="bath">Bath Given</mat-checkbox>
       
-      
-   
-
     <!-- feeding details -->
      <mat-checkbox formControlName="feeding">Feeding</mat-checkbox>
      @if (newEntryForm.get('feeding')?.value){ <!-- gets value from above checkbox -->
       <div formGroupName="feedingDetails" class="nested-group">
         <mat-checkbox formControlName="bottle">Bottle</mat-checkbox>
         <mat-checkbox formControlName="breast">Breast</mat-checkbox>
-        
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Amount (liquid ounces)</mat-label>
           <input matInput type="number" formControlName="amount">
@@ -29,7 +21,6 @@
       </div>
      } 
     
-
     <!-- diaper details -->
      <mat-checkbox formControlName="diaper">Diaper</mat-checkbox>
      @if (newEntryForm.get('diaper')?.value){ <!-- gets value from above checkbox -->
@@ -48,8 +39,13 @@
         </mat-form-field>
       </div>
      }
-    
 
+    <!-- medication -->
+    <mat-form-field appearance="outline">
+      <mat-label>Medication?</mat-label>
+      <input matInput formControlName="medication" type="text"/>
+    </mat-form-field>
+    
     <!-- comments -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Comments</mat-label>
