@@ -1,6 +1,7 @@
 @if (chart()) {
     <p>Chart ID: {{ chart()?.id }} </p>
     <p>Date Initiated: {{ chart()?.date }} </p>
+    <button (click)="openEntryModal()">Add Entry</button>
     <!-- potential @for directive here (e of entries; track e.id)  -->
     <p>Entries: {{ chart()?.entries }}</p>
 }
