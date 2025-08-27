@@ -1,10 +1,12 @@
-import { Component, Input, OnChanges, OnInit, signal, SimpleChanges, WritableSignal } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Signal, signal, SimpleChanges, WritableSignal } from '@angular/core';
 import { ChartService } from '../../../../../shared/services/chart.service';
 import { Chart } from '../../../../../shared/models/chart';
 import { Child } from '../../../../../shared/models/child';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { EntryModalComponent } from './entry-modal/entry-modal.component';
+import { Entry } from '../../../../../shared/models/entry';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-chart',
@@ -15,13 +17,21 @@ import { EntryModalComponent } from './entry-modal/entry-modal.component';
 export class ChartComponent implements OnInit, OnChanges{
   @Input() child: Child | null = null;
   chart: WritableSignal<Chart | null> = signal<Chart | null>(null);
+  entries: WritableSignal<Entry[] | null> = signal(null);
 
   constructor(private chartService: ChartService, private dialog: MatDialog){}
 
   ngOnInit(): void {
      console.log("child: ", this.child)
-     this.chart.set(this.child?.chart!)
+     this.chart.set(this.child?.chart!)  
      console.log("Chart:", this.chart())
+
+     if (this.child?.id) {
+    this.chartService.indexEntriesByChildId(this.child.id).subscribe(entries => {
+      this.entries.set(entries);
+      console.log(entries) //remove when done, will take up a lot of room
+    });
+  }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
