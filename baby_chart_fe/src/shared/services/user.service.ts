@@ -11,8 +11,13 @@ import { Router } from '@angular/router';
 })
 export class UserService {
 currentUserSubject = new BehaviorSubject<User | null>(null);
+user: User | null = null;
 
   constructor(private http: HttpClient, private router: Router) {}
+
+  assignCurrentUser(): void{
+    this.currentUserSubject.subscribe((res) => this.user = res) //assign user data to signal for display in html
+  }
 
   
   loadCurrentUserIfLoggedIn(authService: AuthenticationService): Promise<User | null> {

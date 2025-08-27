@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthenticationService } from '../../../shared/services/authentication.service';
 import { Router } from '@angular/router';
 import { SignUpComponent } from '../sign-up/sign-up.component';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { SignUpComponent } from '../sign-up/sign-up.component';
 })
 export class LoginComponent {
 
-  constructor(private authService: AuthenticationService, private router: Router){}
+  constructor(private authService: AuthenticationService, private router: Router, private userService: UserService){}
 
   loginForm = new FormGroup({
     email: new FormControl ('', [Validators.required, Validators.email]),
@@ -23,6 +24,7 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value.email!, this.loginForm.value.password!).subscribe({
         next: (res: { token: string }) => {
           this.authService.setToken(res.token);
+          this.userService.assignCurrentUser();
           this.router.navigate(['/dashboard']);
         },
         error: (error: any) => {
