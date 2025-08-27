@@ -35,7 +35,7 @@ export class ChartComponent implements OnInit, OnChanges{
     const dialogRef = this.dialog.open(EntryModalComponent, {
       height: '400px',
       width: '600px',
-      data: {}
+      data: {childId: this.child!.id}
     });
 
     // needs to submit to service then to entries controller?

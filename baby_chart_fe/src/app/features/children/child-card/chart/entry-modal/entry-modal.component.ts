@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
@@ -13,7 +13,11 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class EntryModalComponent {
 
-  constructor(public dialogRef: MatDialogRef<EntryModalComponent>) {}
+
+
+  constructor(public dialogRef: MatDialogRef<EntryModalComponent>, private chartService: ChartService, @Inject(MAT_DIALOG_DATA) public data: { childId: number }
+  ){}
+
 
   newEntryForm = new FormGroup({
      time: new FormControl(new Date().toISOString(), Validators.required), // or time when submitted
