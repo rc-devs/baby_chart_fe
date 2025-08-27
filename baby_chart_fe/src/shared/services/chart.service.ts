@@ -19,6 +19,10 @@ export class ChartService {
   return this.http.get<Chart>(`${environment.apiUrl}/children/${childId}/chart`);
  }
 
+ indexEntriesByChildId(childId: number){
+  return this.http.get<Entry[]>(`${environment.apiUrl}/children/${childId}/chart/entries`) 
+ }
+
  createEntry(childId:number, entry: Entry,){
   return this.http.post<Entry>(`${environment.apiUrl}/children/${childId}/chart/entries`, entry) 
  }
