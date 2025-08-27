@@ -3,7 +3,26 @@
     <p>Date Initiated: {{ chart()?.date }} </p>
     <button (click)="openEntryModal()">Add Entry</button>
     <!-- potential @for directive here (e of entries; track e.id)  -->
-    <p>Entries: {{ chart()?.entries }}</p>
+     @for (e of entries(); track e.id){
+        <p>Entry {{ e.id }}</p>
+        <p>Date-Time Submitted: {{ e.time }}</p>
+        <p>Bath {{ 
+          e.bath === true ? 'Yes' : 
+          e.bath === false ? 'No' : 
+          'No'  }}</p>
+        <p>Diaper Changed? {{  
+          e.diaper === true ? 'Yes' : 
+          e.diaper === false ? 'No' : 
+          'No' }}</p>
+        <p>Feeding?{{ 
+          e.feeding === true ? 'Yes' : 
+          e.feeding === false ? 'No' : 
+          'No'  }}</p>
+        <!-- <p>Medication Administered? {{ e.medication }}</p> -->
+        <p>Comments {{ e.comments }}</p>
+        
+     }
+    
 }
 @else {
   <p>No chart data available.</p>
