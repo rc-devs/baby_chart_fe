@@ -4,6 +4,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ChartService } from '../../../../../../shared/services/chart.service';
 
 @Component({
   selector: 'app-entry-modal',
@@ -51,7 +52,44 @@ export class EntryModalComponent {
   //this needs to send to chart or to entry service right??
   submitEntryHandler(): void{
     if (this.newEntryForm.valid){
+      const entryValue = this.newEntryForm.value;
       this.dialogRef.close(this.newEntryForm.value)
+
+    // i feel like making the reactive form then assigning the values to new variables defetes the purpose of the form...
+    const entry = {
+      time: new Date(entryValue.time ?? new Date()),
+      medicationBool: entryValue.medicationBool ?? false,
+      medicationDetails: entryValue.medicationBool ? {
+        medication: entryValue.medicationDetails?.medication ?? ''
+      } : undefined,
+      bath: entryValue.bath ?? false,
+      comments: entryValue.comments ?? '',
+      feeding: entryValue.feeding ?? false,
+      feedingDetails: entryValue.feeding ? {
+        bottle: entryValue.feedingDetails?.bottle ?? false,
+        breast: entryValue.feedingDetails?.breast ?? false,
+        amount: entryValue.feedingDetails?.amount ?? 0
+      } : undefined,
+      diaper: entryValue.diaper ?? false,
+      diaperDetails: entryValue.diaper ? {
+        dirty: entryValue.diaperDetails?.dirty ?? false,
+        wet: entryValue.diaperDetails?.wet ?? false,
+        color: entryValue.diaperDetails?.color ?? '',
+        consistency: entryValue.diaperDetails?.consistency ?? '',
+        comments: entryValue.diaperDetails?.comments ?? ''
+      } : undefined
+    };
+
+
+
+      this.chartService.createEntry(this.data.childId, entry).subscribe({
+        next: (res) => {
+          this.dialogRef.close(res); // return created entry to parent
+        },
+        error: (err) => {
+          console.error('Error submitting entry:', err);
+        }
+      })
     }
   }
 
