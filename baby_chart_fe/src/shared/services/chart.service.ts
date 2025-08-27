@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Chart } from '../models/chart';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
 import { Entry } from '../models/entry';
 
 @Injectable({
