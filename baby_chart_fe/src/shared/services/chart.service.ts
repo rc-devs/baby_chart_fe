@@ -20,6 +20,6 @@ export class ChartService {
  }
 
  createEntry(childId:number, entry: Entry,){
-  return this.http.post<Entry>(`${environment.apiUrl}/children/${childId}/chart/entries`,{entry}) 
+  return this.http.post<Entry>(`${environment.apiUrl}/children/${childId}/chart/entries`, entry) 
  }
 }
