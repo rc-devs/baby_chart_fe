@@ -13,6 +13,8 @@ export class ChartService {
 
   constructor(private http: HttpClient) { }
 
+  chart: Chart | null = null
+
   //show chart/entries
 
 
