@@ -1,8 +1,8 @@
 export class Diaper {
   id!: number;
   dirty?: boolean;
+  wet?: boolean;
   color?: string;
   consistency?: string;
-  wet?: boolean;
   text?: string;
 }
