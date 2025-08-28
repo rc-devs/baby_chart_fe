@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { UserService } from './user.service';
-import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'

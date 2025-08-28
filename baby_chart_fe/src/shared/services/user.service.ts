@@ -19,7 +19,6 @@ user: User | null = null;
     this.currentUserSubject.subscribe((res) => this.user = res) //assign user data to signal for display in html
   }
 
-  
   loadCurrentUserIfLoggedIn(authService: AuthenticationService): Promise<User | null> {
   if (!authService.isLoggedIn()) {
     return Promise.resolve(null);
