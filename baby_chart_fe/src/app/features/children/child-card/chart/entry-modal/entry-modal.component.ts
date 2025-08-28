@@ -14,11 +14,8 @@ import { ChartService } from '../../../../../../shared/services/chart.service';
 })
 export class EntryModalComponent {
 
-
-
   constructor(public dialogRef: MatDialogRef<EntryModalComponent>, private chartService: ChartService, @Inject(MAT_DIALOG_DATA) public data: { childId: number }
   ){}
-
 
   newEntryForm = new FormGroup({
      time: new FormControl(new Date().toISOString(), Validators.required), // or time when submitted
@@ -79,8 +76,6 @@ export class EntryModalComponent {
         comments: entryValue.diaperDetails?.comments ?? ''
       } : undefined
     };
-
-
 
       this.chartService.createEntry(this.data.childId, entry).subscribe({
         next: (res) => {

@@ -4,7 +4,7 @@ export interface Entry {
   medicationBool: boolean;
   medicationDetails?: {
     medication: string;
-  };
+    };
   bath?: boolean;
   comments?: string;
   feeding?: boolean;
@@ -12,7 +12,7 @@ export interface Entry {
     bottle: boolean;
     breast: boolean;
     amount: number;
-  };
+    };
   diaper?: boolean;
   diaperDetails?: {
     dirty: boolean;
@@ -20,5 +20,5 @@ export interface Entry {
     color?: string;
     consistency?: string;
     comments?: string;
-  };
+    };
 }
