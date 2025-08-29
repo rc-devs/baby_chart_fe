@@ -15,6 +15,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border: 2px solid black;
 }
 
+.entry-card{
+  border: 2px dotted black;
+  border-radius: 2em;
+  width: 400px;
+  padding: 10px;
+  display: block;
+}
+
 /* modal styling */
 .modal{
   display: flex;
