@@ -55,27 +55,24 @@ export class EntryModalComponent {
     // i feel like making the reactive form then assigning the values to new variables defetes the purpose of the form...
     const entry = {
       time: new Date(entryValue.time ?? new Date()),
-      medicationBool: entryValue.medicationBool ?? false,
-      medicationDetails: entryValue.medicationBool ? {
-        medication: entryValue.medicationDetails?.medication ?? ''
-      } : undefined,
+      medication: entryValue.medicationBool ? (entryValue.medicationDetails?.medication ?? null) : null,
       bath: entryValue.bath ?? false,
       comments: entryValue.comments ?? '',
-      feeding: entryValue.feeding ?? false,
-      feedingDetails: entryValue.feeding ? {
+      feeding_attributes: entryValue.feeding ? {
         bottle: entryValue.feedingDetails?.bottle ?? false,
         breast: entryValue.feedingDetails?.breast ?? false,
         amount: entryValue.feedingDetails?.amount ?? 0
-      } : undefined,
-      diaper: entryValue.diaper ?? false,
-      diaperDetails: entryValue.diaper ? {
+      } : null,
+      diaper_attributes: entryValue.diaper ? {
         dirty: entryValue.diaperDetails?.dirty ?? false,
         wet: entryValue.diaperDetails?.wet ?? false,
         color: entryValue.diaperDetails?.color ?? '',
         consistency: entryValue.diaperDetails?.consistency ?? '',
         comments: entryValue.diaperDetails?.comments ?? ''
-      } : undefined
+      } : null
     };
+
+    console.log(entry)
 
       this.chartService.createEntry(this.data.childId, entry).subscribe({
         next: (res) => {
