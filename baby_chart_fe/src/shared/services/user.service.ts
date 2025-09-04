@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
@@ -11,12 +11,12 @@ import { Router } from '@angular/router';
 })
 export class UserService {
 currentUserSubject = new BehaviorSubject<User | null>(null);
-user: User | null = null;
+user = signal<User | null>(null);
 
   constructor(private http: HttpClient, private router: Router) {}
 
   assignCurrentUser(): void{
-    this.currentUserSubject.subscribe((res) => this.user = res) //assign user data to signal for display in html
+    this.currentUserSubject.subscribe((res) => this.user.set(res)) //assign user data to signal for display in html
   }
 
   loadCurrentUserIfLoggedIn(authService: AuthenticationService): Promise<User | null> {
@@ -43,6 +43,7 @@ user: User | null = null;
 
   setCurrentUser(user: User | null) {
     this.currentUserSubject.next(user);
+    this.user!.set(user);
   }
 
   getBootstrapData() {

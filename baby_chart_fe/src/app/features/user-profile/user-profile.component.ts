@@ -17,6 +17,11 @@ export class UserProfileComponent implements OnInit{
 
   ngOnInit(): void {
     this.userService.loadCurrentUserIfLoggedIn(this.authService) //get user data
-    this.userService.assignCurrentUser()
+    this.userService.currentUserSubject.subscribe((res) => {
+      this.user.set(res); //assign user data to signal for display in html 
+      if (res){ //if response successful, update form with returned values (which are assigned to user signal)
+  
+      }
+    }); 
   }
 }
