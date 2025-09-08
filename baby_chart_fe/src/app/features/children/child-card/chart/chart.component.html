@@ -10,18 +10,27 @@
 
       <p>Bath: {{ e.bath ? 'Yes' : 'No' }}</p>
 
-      <p>Diaper</p>
-      <p>Dirty: {{ e.diaper?.dirty ? 'Yes' : 'No' }}</p>
-      <p>Wet: {{ e.diaper?.wet ? 'Yes' : 'No' }}</p>
-      <p>Color: {{ e.diaper?.color || 'N/A' }}</p>
-      <p>Consistency: {{ e.diaper?.consistency || 'N/A' }}</p>
-      <p>Comments: {{ e.diaper?.comments || 'None' }}</p>
+      <p>Diaper:</p>
+        @if(e.diaper?.dirty || e.diaper?.wet){
+          <p>Dirty: {{ e.diaper?.dirty ? 'Yes' : 'No' }}</p>
+          <p>Wet: {{ e.diaper?.wet ? 'Yes' : 'No' }}</p>
+          <p>Color: {{ e.diaper?.color || 'N/A' }}</p>
+          <p>Consistency: {{ e.diaper?.consistency || 'N/A' }}</p>
+          <p>Comments: {{ e.diaper?.comments || 'None' }}</p>
+        } @else {
+          <p>Diaper was not changed.</p>
+        }
+      
 
-      <p>Feeding</p>
-      <p>Bottle: {{ e.feeding?.bottle ? 'Yes' : 'No' }}</p>
-      <p>Breast: {{ e.feeding?.breast ? 'Yes' : 'No' }}</p>
-      <p>Amount: {{ e.feeding?.amount ? (e.feeding?.amount + ' mL') : 'N/A' }}</p>
-
+      <p>Feeding:</p>
+        @if (e.feeding?.bottle || e.feeding?.breast){
+          <p>Amount: {{ e.feeding?.amount ? (e.feeding?.amount + ' mL') : 'N/A' }}</p>
+          <p>Bottle: {{ e.feeding?.bottle ? 'Yes' : 'No' }}</p>
+          <p>Breast: {{ e.feeding?.breast ? 'Yes' : 'No' }}</p>
+        } @else {
+          <p>None.</p>
+        }
+     
       <p>Medication: {{ e.medication || 'None' }}</p>
       <p>Comments: {{ e.comments || 'None' }}</p>
     </div>
