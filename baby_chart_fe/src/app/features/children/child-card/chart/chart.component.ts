@@ -15,7 +15,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   styleUrl: './chart.component.css'
 })
 export class ChartComponent implements OnInit, OnChanges{
-  @Input() child: Child | null = null;
+  @Input() child: Child | null = null; //child data from html passed as 'c'
   chart: WritableSignal<Chart | null> = signal<Chart | null>(null);
   entries: WritableSignal<Entry[]> = signal<Entry[]>([]);
 
