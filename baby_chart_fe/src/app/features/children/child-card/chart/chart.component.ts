@@ -74,4 +74,9 @@ export class ChartComponent implements OnInit, OnChanges{
     }
   });
  }
+
+ deleteEntryHandler(e: Entry){
+  console.log(e)
+  this.chartService.deleteEntry(this.child!.id, e.id!, e )
+ }
 }
