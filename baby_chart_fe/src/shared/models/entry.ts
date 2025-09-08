@@ -4,12 +4,12 @@ export interface Entry {
   medication: string | null;
   bath: boolean;
   comments: string;
-  feeding_attributes: {
+  feeding: {
     bottle: boolean;
     breast: boolean;
     amount: number;
   } | null;
-  diaper_attributes: {
+  diaper: {
     dirty: boolean;
     wet: boolean;
     color: string;

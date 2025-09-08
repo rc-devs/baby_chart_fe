@@ -10,23 +10,17 @@
 
       <p>Bath: {{ e.bath ? 'Yes' : 'No' }}</p>
 
-      <!-- Check if diaper_attributes exists -->
-      <p>Diaper Changed? {{ e.diaper_attributes ? 'Yes' : 'No' }}</p>
+      <p>Diaper</p>
+      <p>Dirty: {{ e.diaper?.dirty ? 'Yes' : 'No' }}</p>
+      <p>Wet: {{ e.diaper?.wet ? 'Yes' : 'No' }}</p>
+      <p>Color: {{ e.diaper?.color || 'N/A' }}</p>
+      <p>Consistency: {{ e.diaper?.consistency || 'N/A' }}</p>
+      <p>Comments: {{ e.diaper?.comments || 'None' }}</p>
 
-      <!-- Access properties safely with ?. -->
-      <p>Dirty: {{ e.diaper_attributes?.dirty ? 'Yes' : 'No' }}</p>
-      <p>Wet: {{ e.diaper_attributes?.wet ? 'Yes' : 'No' }}</p>
-      <p>Color: {{ e.diaper_attributes?.color || 'N/A' }}</p>
-      <p>Consistency: {{ e.diaper_attributes?.consistency || 'N/A' }}</p>
-      <p>Comments: {{ e.diaper_attributes?.comments || 'None' }}</p>
-
-      <!-- Check if feeding_attributes exists -->
-      <p>Feeding: {{ e.feeding_attributes ? 'Yes' : 'No' }}</p>
-
-      <!-- Access feeding attributes safely -->
-      <p>Bottle: {{ e.feeding_attributes?.bottle ? 'Yes' : 'No' }}</p>
-      <p>Breast: {{ e.feeding_attributes?.breast ? 'Yes' : 'No' }}</p>
-      <p>Amount: {{ e.feeding_attributes?.amount ? (e.feeding_attributes?.amount + ' mL') : 'N/A' }}</p>
+      <p>Feeding</p>
+      <p>Bottle: {{ e.feeding?.bottle ? 'Yes' : 'No' }}</p>
+      <p>Breast: {{ e.feeding?.breast ? 'Yes' : 'No' }}</p>
+      <p>Amount: {{ e.feeding?.amount ? (e.feeding?.amount + ' mL') : 'N/A' }}</p>
 
       <p>Medication: {{ e.medication || 'None' }}</p>
       <p>Comments: {{ e.comments || 'None' }}</p>

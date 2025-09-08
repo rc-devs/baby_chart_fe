@@ -17,7 +17,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class ChartComponent implements OnInit, OnChanges{
   @Input() child: Child | null = null;
   chart: WritableSignal<Chart | null> = signal<Chart | null>(null);
-  entries: WritableSignal<Entry[] | null> = signal(null);
+  entries: WritableSignal<Entry[]> = signal<Entry[]>([]);
 
   constructor(private chartService: ChartService, private dialog: MatDialog){}
 

@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ChartService } from '../../../../../../shared/services/chart.service';
+import { Entry } from '../../../../../../shared/models/entry';
 
 @Component({
   selector: 'app-entry-modal',
@@ -58,12 +59,12 @@ export class EntryModalComponent {
       medication: entryValue.medicationBool ? (entryValue.medicationDetails?.medication ?? null) : null,
       bath: entryValue.bath ?? false,
       comments: entryValue.comments ?? '',
-      feeding_attributes: entryValue.feeding ? {
+      feeding: entryValue.feeding ? {
         bottle: entryValue.feedingDetails?.bottle ?? false,
         breast: entryValue.feedingDetails?.breast ?? false,
         amount: entryValue.feedingDetails?.amount ?? 0
       } : null,
-      diaper_attributes: entryValue.diaper ? {
+      diaper: entryValue.diaper ? {
         dirty: entryValue.diaperDetails?.dirty ?? false,
         wet: entryValue.diaperDetails?.wet ?? false,
         color: entryValue.diaperDetails?.color ?? '',
@@ -74,7 +75,7 @@ export class EntryModalComponent {
 
     console.log(entry)
 
-      this.chartService.createEntry(this.data.childId, entry).subscribe({
+      this.chartService.createEntry(this.data.childId, entry as Entry).subscribe({
         next: (res) => {
           this.dialogRef.close(res); // return created entry to parent
         },
