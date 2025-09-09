@@ -76,8 +76,42 @@ export class UpdateEntryModalComponent implements OnInit{
     }
   }
 
-  submitEntryUpdateHandler(){
-  
+  submitEntryUpdateHandler(): void{
+    if (this.newEntryForm.valid){
+      const entryValue = this.newEntryForm.value;
+      this.dialogRef.close(this.newEntryForm.value)
+
+    //assign as entry to avoid runtime issues i guess
+    const updatedEntry = {
+     /*  time: new Date(entryValue.time ?? new Date()), */
+      medication: entryValue.medicationBool ? (entryValue.medicationDetails?.medication ?? null) : null,
+      bath: entryValue.bath ?? false,
+      comments: entryValue.comments ?? '',
+      feeding: entryValue.feeding ? {
+        bottle: entryValue.feedingDetails?.bottle ?? false,
+        breast: entryValue.feedingDetails?.breast ?? false,
+        amount: entryValue.feedingDetails?.amount ?? 0
+      } : null,
+      diaper: entryValue.diaper ? {
+        dirty: entryValue.diaperDetails?.dirty ?? false,
+        wet: entryValue.diaperDetails?.wet ?? false,
+        color: entryValue.diaperDetails?.color ?? '',
+        consistency: entryValue.diaperDetails?.consistency ?? '',
+        comments: entryValue.diaperDetails?.comments ?? ''
+      } : null
+    }; 
+
+     console.log(updatedEntry) 
+
+      this.chartService.updateEntry(this.data.childId, this.data.entry!.id!, updatedEntry as Entry).subscribe({
+        next: (res) => {
+          this.dialogRef.close(res); // return created entry to parent
+        },
+        error: (err) => {
+          console.error('Error updating entry:', err);
+        }
+      })
+    }
   }
 
   onCancel(): void {
