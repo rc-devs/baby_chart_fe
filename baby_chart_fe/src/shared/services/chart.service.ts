@@ -26,4 +26,8 @@ export class ChartService {
  createEntry(childId:number, entry: Entry,){
   return this.http.post<Entry>(`${environment.apiUrl}/children/${childId}/chart/entries`, entry) 
  }
+
+ deleteEntry(childId:number, entryId: number){
+  return this.http.delete<Entry>(`${environment.apiUrl}/children/${childId}/chart/entries/${entryId}`)
+ }
 }
