@@ -27,11 +27,11 @@ export class ChartComponent implements OnInit, OnChanges{
      console.log("Chart:", this.chart())
 
      if (this.child?.id) {
-    this.chartService.indexEntriesByChildId(this.child.id).subscribe(entries => {
-      this.entries.set(entries);
-      console.log(entries) //remove when done, will take up a lot of room
-    });
-  }
+      this.chartService.indexEntriesByChildId(this.child.id).subscribe(entries => {
+        this.entries.set(entries);
+        console.log(entries) //remove when done, will take up a lot of room
+      });
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
