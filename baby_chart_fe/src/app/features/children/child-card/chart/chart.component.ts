@@ -51,8 +51,8 @@ export class ChartComponent implements OnInit, OnChanges{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const updatedEntries = [...this.entries(), { ...result, id: result.id}]; //spread old entries and add new entry (result)
-        this.entries.set(updatedEntries); // set to signal triggers change detection
+        const newEntry = [...this.entries(), { ...result, id: result.id}]; //spread old entries and add new entry (result)
+        this.entries.set(newEntry); // set to signal triggers change detection
       }
     });
   }
