@@ -101,7 +101,9 @@ export class ChartComponent implements OnInit, OnChanges{
 
   if (userConfirmed){
     this.chartService.deleteEntry(this.child!.id, e.id!).subscribe({
-      next: (res) => { 
+      next: () => { 
+        const updatedEntries = this.entries().filter(entry => entry.id !== e.id); //get all the entries from the array that do not equal the submitted 
+        this.entries.set(updatedEntries); //change detection
         console.log('Entry successfully deleted');
       },
       error: (err) => {
