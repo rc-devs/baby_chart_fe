@@ -30,4 +30,8 @@ export class ChartService {
  deleteEntry(childId:number, entryId: number){
   return this.http.delete<Entry>(`${environment.apiUrl}/children/${childId}/chart/entries/${entryId}`)
  }
+
+ updateEntry(childId:number, entryId: number, updatedEntry: Entry){
+  return this.http.put<Entry>(`${environment.apiUrl}/children/${childId}/chart/entries/${entryId}`, updatedEntry)
+ }
 }
