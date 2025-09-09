@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EntryModalComponent } from './entry-modal/entry-modal.component';
 import { Entry } from '../../../../../shared/models/entry';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { UpdateEntryModalComponent } from './update-entry-modal/update-entry-modal.component';
 
 @Component({
   selector: 'app-chart',
@@ -56,6 +57,24 @@ export class ChartComponent implements OnInit, OnChanges{
     });
   }
 
+  openUpdateModal(e:Entry){
+    const dialogRef = this.dialog.open(UpdateEntryModalComponent, {
+      height: '400px',
+      width: '600px',
+      data: {
+        childId: this.child!.id,
+        entry: e
+      }
+    });
+
+    // needs to submit to service then to entries controller?
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        //reload chart?
+      }
+    });
+  }
+
   showChartHandler() {
   if (!this.child?.id) {
     console.error('Child ID is missing');
@@ -90,5 +109,9 @@ export class ChartComponent implements OnInit, OnChanges{
       }
     });
   }
+ }
+
+ updateEntryHandler(e: Entry){
+  this.openUpdateModal(e) //patch value
  }
 }
