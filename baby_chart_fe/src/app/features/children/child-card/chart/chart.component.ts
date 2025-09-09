@@ -77,13 +77,18 @@ export class ChartComponent implements OnInit, OnChanges{
 
  deleteEntryHandler(e: Entry){
   console.log(e)
-  this.chartService.deleteEntry(this.child!.id, e.id!).subscribe({
-    next: (res) => { 
-      console.log('Entry successfully deleted');
-    },
-    error: (err) => {
-      console.error('Error deleting chart:', err);
-    }
-  });
+
+  let userConfirmed= confirm(`Are you sure you want to delete entry ${e.id!}`);
+
+  if (userConfirmed){
+    this.chartService.deleteEntry(this.child!.id, e.id!).subscribe({
+      next: (res) => { 
+        console.log('Entry successfully deleted');
+      },
+      error: (err) => {
+        console.error('Error deleting chart:', err);
+      }
+    });
+  }
  }
 }
