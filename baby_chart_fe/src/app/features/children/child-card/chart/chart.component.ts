@@ -49,10 +49,10 @@ export class ChartComponent implements OnInit, OnChanges{
       data: {childId: this.child!.id}
     });
 
-    // needs to submit to service then to entries controller?
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        //this.chart()?.entries.push({ ...result, id: Date.now() });
+        const updatedEntries = [...this.entries(), { ...result, id: result.id}]; //spread old entries and add new entry (result)
+        this.entries.set(updatedEntries); // set to signal triggers change detection
       }
     });
   }
