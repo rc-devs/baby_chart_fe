@@ -58,17 +58,17 @@ export class EntryModalComponent {
       medication: entryValue.medicationBool ? (entryValue.medicationDetails?.medication ?? null) : null,
       bath: entryValue.bath ?? false,
       comments: entryValue.comments ?? '',
-      feeding: entryValue.feeding ? {
-        bottle: entryValue.feedingDetails?.bottle ?? false,
-        breast: entryValue.feedingDetails?.breast ?? false,
-        amount: entryValue.feedingDetails?.amount ?? 0
+      feeding_attributes: entryValue.feeding ? {
+        bottle: entryValue.feeding_attributes?.bottle ?? false,
+        breast: entryValue.feeding_attributes?.breast ?? false,
+        amount: entryValue.feeding_attributes?.amount ?? 0
       } : null,
-      diaper: entryValue.diaper ? {
-        dirty: entryValue.diaperDetails?.dirty ?? false,
-        wet: entryValue.diaperDetails?.wet ?? false,
-        color: entryValue.diaperDetails?.color ?? '',
-        consistency: entryValue.diaperDetails?.consistency ?? '',
-        comments: entryValue.diaperDetails?.comments ?? ''
+      diaper_attributes: entryValue.diaper ? {
+        dirty: entryValue.diaper_attributes?.dirty ?? false,
+        wet: entryValue.diaper_attributes?.wet ?? false,
+        color: entryValue.diaper_attributes?.color ?? '',
+        consistency: entryValue.diaper_attributes?.consistency ?? '',
+        comments: entryValue.diaper_attributes?.comments ?? ''
       } : null
     };
 
