@@ -1,15 +1,15 @@
 export interface Entry {
   id?: number;
-  time: Date;
+  time?: Date; //not required in update of previous entries
   medication: string | null;
   bath: boolean;
   comments: string;
-  feeding: {
+  feeding_attributes?: {
     bottle: boolean;
     breast: boolean;
     amount: number;
   } | null;
-  diaper: {
+  diaper_attributes?: {
     dirty: boolean;
     wet: boolean;
     color: string;
