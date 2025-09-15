@@ -28,7 +28,7 @@ export class EntryModalComponent {
      comments: new FormControl(''), 
      feeding: new FormControl(false),
      //new formGroup (wowzers, a different group of the form)
-      feedingDetails: new FormGroup({
+      feeding_attributes: new FormGroup({
         bottle: new FormControl(false),
         breast: new FormControl(false),
         amount: new FormControl(0, [
@@ -37,7 +37,7 @@ export class EntryModalComponent {
         ])
       }),
     diaper: new FormControl(false),
-      diaperDetails: new FormGroup({
+      diaper_attributes: new FormGroup({
         dirty: new FormControl(false),
         wet: new FormControl(false),
         color: new FormControl(''),

@@ -11,7 +11,7 @@
     <!-- feeding details -->
      <mat-checkbox formControlName="feeding">Feeding</mat-checkbox>
      @if (newEntryForm.get('feeding')?.value){ <!-- gets value from above checkbox -->
-      <div formGroupName="feedingDetails" class="nested-group">
+      <div formGroupName="feeding_attributes" class="nested-group">
         <mat-checkbox formControlName="bottle">Bottle</mat-checkbox>
         <mat-checkbox formControlName="breast">Breast</mat-checkbox>
         <mat-form-field appearance="outline" class="full-width">
@@ -24,7 +24,7 @@
     <!-- diaper details -->
      <mat-checkbox formControlName="diaper">Diaper</mat-checkbox>
      @if (newEntryForm.get('diaper')?.value){ <!-- gets value from above checkbox -->
-      <div formGroupName="diaperDetails" class="nested-group">
+      <div formGroupName="diaper_attributes" class="nested-group">
         <mat-checkbox formControlName="dirty">Dirty</mat-checkbox>
         <mat-checkbox formControlName="wet">Wet</mat-checkbox>
 
