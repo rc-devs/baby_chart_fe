@@ -51,7 +51,6 @@ export class EntryModalComponent {
   submitEntryHandler(): void{
     if (this.newEntryForm.valid){
       const entryValue = this.newEntryForm.value;
-      this.dialogRef.close(this.newEntryForm.value)
 
     // i feel like making the reactive form then assigning the values to new variables defetes the purpose of the form...
     const entry = {
