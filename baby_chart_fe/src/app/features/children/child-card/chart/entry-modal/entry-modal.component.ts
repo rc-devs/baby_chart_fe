@@ -64,12 +64,11 @@ export class EntryModalComponent {
     }),
   });
 
-  //this needs to send to chart or to entry service right??
   submitEntryHandler(): void {
     if (this.newEntryForm.valid) {
       const entryValue = this.newEntryForm.value;
 
-      // i feel like making the reactive form then assigning the values to new variables defetes the purpose of the form...
+      // new variable needed to avoid runtime error i guess
       const entry = {
         time: new Date(entryValue.time ?? new Date()),
         medication: entryValue.medicationBool
@@ -97,6 +96,7 @@ export class EntryModalComponent {
 
       console.log(entry);
 
+      //submits to chart service and subscribes to response
       this.chartService
         .createEntry(this.data.childId, entry as Entry)
         .subscribe({
