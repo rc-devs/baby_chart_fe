@@ -7,21 +7,17 @@
      <div class="entry-card">
       <p>Entry ID: {{ e.id }}</p>
       <p>Date-Time Submitted: {{ e.time | date: 'short' }}</p>
-
       <p>Bath: {{ e.bath ? 'Yes' : 'No' }}</p>
-
       <p>Diaper:</p>
-        @if(e.diaper?.dirty || e.diaper?.wet){
+        @if(e.diaper?.dirty){
           <p>Dirty: {{ e.diaper?.dirty ? 'Yes' : 'No' }}</p>
-          <p>Wet: {{ e.diaper?.wet ? 'Yes' : 'No' }}</p>
           <p>Color: {{ e.diaper?.color || 'N/A' }}</p>
           <p>Consistency: {{ e.diaper?.consistency || 'N/A' }}</p>
-          <p>Comments: {{ e.diaper?.comments || 'None' }}</p>
+        } @else if(e.diaper?.wet){
+          <p>Wet: {{ e.diaper?.wet ? 'Yes' : 'No' }}</p>
         } @else {
           <p>Diaper was not changed.</p>
         }
-      
-
       <p>Feeding:</p>
         @if (e.feeding?.bottle || e.feeding?.breast){
           <p>Amount: {{ e.feeding?.amount ? (e.feeding?.amount + ' oz') : 'N/A' }}</p>
@@ -30,7 +26,6 @@
         } @else {
           <p>None.</p>
         }
-     
       <p>Medication: {{ e.medication || 'None' }}</p>
       <p>Comments: {{ e.comments || 'None' }}</p>
       <button (click)="deleteEntryHandler(e)">Delete Entry</button>
