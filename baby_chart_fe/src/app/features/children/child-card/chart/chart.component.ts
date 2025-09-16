@@ -16,7 +16,7 @@ import { EntryNoDiaperFeedingAttributes } from '../../../../../shared/models/ent
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.css'
 })
-export class ChartComponent implements OnInit/* , OnChanges */{
+export class ChartComponent implements OnInit{
   @Input() child: Child | null = null; //child data from html passed as 'c'
   chart: WritableSignal<Chart | null> = signal<Chart | null>(null);
   entries: WritableSignal<Entry[]> = signal<Entry[]>([]);
@@ -25,9 +25,7 @@ export class ChartComponent implements OnInit/* , OnChanges */{
   constructor(private chartService: ChartService, private dialog: MatDialog){}
 
   ngOnInit(): void {
-     /* console.log("child: ", this.child) */
      this.chart.set(this.child?.chart!)  
-     /* console.log("Chart:", this.chart()) */
 
      if (this.child?.id) {
       this.chartService.indexEntriesByChildId(this.child.id).subscribe(result => {
@@ -37,13 +35,6 @@ export class ChartComponent implements OnInit/* , OnChanges */{
       });
     }
   }
-
-  /* ngOnChanges(changes: SimpleChanges): void {
-    if (changes['child'] && this.child?.chart) {
-      this.chart.set(this.child.chart);
-      console.log("Chart updated:", this.chart());
-    }
-  } */
 
   openEntryModal(){
     const dialogRef = this.dialog.open(EntryModalComponent, {
@@ -129,7 +120,5 @@ export class ChartComponent implements OnInit/* , OnChanges */{
   }
  }
 
- /* updateEntryHandler(e: Entry){
-  this.openUpdateModal(e) //patch value
- } */
+
 }
