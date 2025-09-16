@@ -65,7 +65,7 @@ export class ChartComponent implements OnInit/* , OnChanges */{
     });
   }
 
-  openUpdateModal(e:Entry){
+  openUpdateModal(e:EntryNoDiaperFeedingAttributes){
     console.log(e)
     const dialogRef = this.dialog.open(UpdateEntryModalComponent, {
       height: '400px',
@@ -81,6 +81,7 @@ export class ChartComponent implements OnInit/* , OnChanges */{
         const updatedEntries = this.entries().map(entry => entry.id === result.id ? result : entry);
         this.entries.set(updatedEntries); // set to signal triggers change detection
         this.returnedEntries.set(updatedEntries); // set to signal triggers change detection
+        console.log(result)
         console.log(this.entries)
         console.log('Entry successfully updated');
       }
