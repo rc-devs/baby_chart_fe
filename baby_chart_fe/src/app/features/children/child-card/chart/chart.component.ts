@@ -8,6 +8,7 @@ import { EntryModalComponent } from './entry-modal/entry-modal.component';
 import { Entry } from '../../../../../shared/models/entry';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { UpdateEntryModalComponent } from './update-entry-modal/update-entry-modal.component';
+import { EntryNoDiaperFeedingAttributes } from '../../../../../shared/models/entryNoDiaperFeedingAttributes';
 
 @Component({
   selector: 'app-chart',
@@ -15,32 +16,34 @@ import { UpdateEntryModalComponent } from './update-entry-modal/update-entry-mod
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.css'
 })
-export class ChartComponent implements OnInit, OnChanges{
+export class ChartComponent implements OnInit/* , OnChanges */{
   @Input() child: Child | null = null; //child data from html passed as 'c'
   chart: WritableSignal<Chart | null> = signal<Chart | null>(null);
   entries: WritableSignal<Entry[]> = signal<Entry[]>([]);
+  returnedEntries: WritableSignal<EntryNoDiaperFeedingAttributes[]> = signal<EntryNoDiaperFeedingAttributes[]>([]);
 
   constructor(private chartService: ChartService, private dialog: MatDialog){}
 
   ngOnInit(): void {
-     console.log("child: ", this.child)
+     /* console.log("child: ", this.child) */
      this.chart.set(this.child?.chart!)  
-     console.log("Chart:", this.chart())
+     /* console.log("Chart:", this.chart()) */
 
      if (this.child?.id) {
-      this.chartService.indexEntriesByChildId(this.child.id).subscribe(entries => {
-        this.entries.set(entries);
-        console.log(entries) //remove when done, will take up a lot of room
+      this.chartService.indexEntriesByChildId(this.child.id).subscribe(result => {
+        this.entries.set(result);
+        this.returnedEntries.set(result);
+        console.log(result) //remove when done, will take up a lot of room
       });
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  /* ngOnChanges(changes: SimpleChanges): void {
     if (changes['child'] && this.child?.chart) {
       this.chart.set(this.child.chart);
       console.log("Chart updated:", this.chart());
     }
-  }
+  } */
 
   openEntryModal(){
     const dialogRef = this.dialog.open(EntryModalComponent, {
@@ -51,13 +54,18 @@ export class ChartComponent implements OnInit, OnChanges{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const newEntry = [...this.entries(), { ...result, id: result.id}]; //spread old entries and add new entry (result)
-        this.entries.set(newEntry); // set to signal triggers change detection
+        console.log(result)
+        const newEntryList = [...this.entries(), result,]; //spread old entries and add new entry (result)
+        console.log(newEntryList)
+        this.entries.set(newEntryList); // set to signal triggers change detection
+        console.log(this.entries())
+        console.log(this.entries)
       }
     });
   }
 
   openUpdateModal(e:Entry){
+    console.log(e)
     const dialogRef = this.dialog.open(UpdateEntryModalComponent, {
       height: '400px',
       width: '600px',
@@ -67,10 +75,12 @@ export class ChartComponent implements OnInit, OnChanges{
       }
     });
 
-    // needs to submit to service then to entries controller?
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        //reload chart?
+        const updatedEntries = this.entries().map(entry => entry.id === result.id ? result : entry);
+        this.entries.set(updatedEntries);
+        console.log(this.entries)
+        console.log('Entry successfully updated');
       }
     });
   }
@@ -103,17 +113,19 @@ export class ChartComponent implements OnInit, OnChanges{
     this.chartService.deleteEntry(this.child!.id, e.id!).subscribe({
       next: () => { 
         const updatedEntries = this.entries().filter(entry => entry.id !== e.id); //get all the entries from the array that do not equal the submitted 
+        console.log(updatedEntries)
         this.entries.set(updatedEntries); //change detection
+        console.log(this.entries)
         console.log('Entry successfully deleted');
       },
       error: (err) => {
-        console.error('Error deleting chart:', err);
+        console.error('Error updating chart:', err);
       }
     });
   }
  }
 
- updateEntryHandler(e: Entry){
+ /* updateEntryHandler(e: Entry){
   this.openUpdateModal(e) //patch value
- }
+ } */
 }
