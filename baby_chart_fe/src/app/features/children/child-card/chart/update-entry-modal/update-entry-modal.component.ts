@@ -88,18 +88,18 @@ export class UpdateEntryModalComponent implements OnInit{
       medication: entryValue.medicationBool ? (entryValue.medicationDetails?.medication ?? null) : null,
       bath: entryValue.bath ?? false,
       comments: entryValue.comments ?? '',
-      feeding_attributes: entryValue.feedingBool ? ({
+      feeding_attributes: entryValue.feedingBool ? {
         bottle: entryValue.feeding?.bottle ?? false,
         breast: entryValue.feeding?.breast ?? false,
         amount: entryValue.feeding?.amount ?? 0
-      }) : null,
+      } : {_destroy: true },
       diaper_attributes: entryValue.diaperBool ? {
         dirty: entryValue.diaper?.dirty ?? false,
         wet: entryValue.diaper?.wet ?? false,
         color: entryValue.diaper?.color ?? '',
         consistency: entryValue.diaper?.consistency ?? '',
         comments: entryValue.diaper?.comments ?? ''
-      } : null
+      } : {_destroy: true },
     }; 
 
      console.log(updatedEntry) 
