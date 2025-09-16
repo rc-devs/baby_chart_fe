@@ -14,7 +14,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ChartService } from '../../../../../../shared/services/chart.service';
-import { Entry } from '../../../../../../shared/models/entry';
+import { EntryNoDiaperFeedingAttributes } from '../../../../../../shared/models/entryNoDiaperFeedingAttributes';
 
 @Component({
   selector: 'app-entry-modal',
@@ -98,7 +98,7 @@ export class EntryModalComponent {
 
       //submits to chart service and subscribes to response
       this.chartService
-        .createEntry(this.data.childId, entry as Entry)
+        .createEntry(this.data.childId, entry as EntryNoDiaperFeedingAttributes)
         .subscribe({
           next: (res) => {
             this.dialogRef.close(res); // return created entry to parent
