@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ChartService } from '../../../../../../shared/services/chart.service';
 import { Entry } from '../../../../../../shared/models/entry';
+import { EntryNoDiaperFeedingAttributes } from '../../../../../../shared/models/entryNoDiaperFeedingAttributes';
 
 @Component({
   selector: 'app-update-entry-modal',
@@ -15,7 +16,7 @@ import { Entry } from '../../../../../../shared/models/entry';
 })
 export class UpdateEntryModalComponent implements OnInit{
 
-  constructor(public dialogRef: MatDialogRef<UpdateEntryModalComponent>, private chartService: ChartService, @Inject(MAT_DIALOG_DATA) public data: { childId: number, entry?: Entry }){}
+  constructor(public dialogRef: MatDialogRef<UpdateEntryModalComponent>, private chartService: ChartService, @Inject(MAT_DIALOG_DATA) public data: { childId: number, entry?: EntryNoDiaperFeedingAttributes }){}
 
   newEntryForm = new FormGroup({
      time: new FormControl(new Date().toISOString(), Validators.required), // or time when submitted
@@ -24,10 +25,9 @@ export class UpdateEntryModalComponent implements OnInit{
       medication: new FormControl('', /* Validators.required */),
      }),
      bath: new FormControl(false),
-     comments: new FormControl(''), 
-     feeding: new FormControl(false),
-     //new formGroup (wowzers, a different group of the form)
-      feedingDetails: new FormGroup({
+     comments: new FormControl(''),
+     //new formGroup (wowzers, a different group of the form) 
+     feeding: new FormGroup({
         bottle: new FormControl(false),
         breast: new FormControl(false),
         amount: new FormControl(0, [
@@ -35,8 +35,7 @@ export class UpdateEntryModalComponent implements OnInit{
           /* Validators.required */
         ])
       }),
-    diaper: new FormControl(false),
-      diaperDetails: new FormGroup({
+    diaper: new FormGroup({
         dirty: new FormControl(false),
         wet: new FormControl(false),
         color: new FormControl(''),
@@ -58,14 +57,12 @@ export class UpdateEntryModalComponent implements OnInit{
         },
         bath: e.bath ?? false,
         comments: e.comments ?? '',
-        feeding: !!e.feeding,
-        feedingDetails: {
+        feeding: {
           bottle: e.feeding?.bottle ?? false,
           breast: e.feeding?.breast ?? false,
           amount: e.feeding?.amount ?? 0
         },
-        diaper: !!e.diaper,
-        diaperDetails: {
+        diaper: {
           dirty: e.diaper?.dirty ?? false,
           wet: e.diaper?.wet ?? false,
           color: e.diaper?.color ?? '',
@@ -88,16 +85,16 @@ export class UpdateEntryModalComponent implements OnInit{
       bath: entryValue.bath ?? false,
       comments: entryValue.comments ?? '',
       feeding: entryValue.feeding ? {
-        bottle: entryValue.feedingDetails?.bottle ?? false,
-        breast: entryValue.feedingDetails?.breast ?? false,
-        amount: entryValue.feedingDetails?.amount ?? 0
+        bottle: entryValue.feeding?.bottle ?? false,
+        breast: entryValue.feeding?.breast ?? false,
+        amount: entryValue.feeding?.amount ?? 0
       } : null,
       diaper: entryValue.diaper ? {
-        dirty: entryValue.diaperDetails?.dirty ?? false,
-        wet: entryValue.diaperDetails?.wet ?? false,
-        color: entryValue.diaperDetails?.color ?? '',
-        consistency: entryValue.diaperDetails?.consistency ?? '',
-        comments: entryValue.diaperDetails?.comments ?? ''
+        dirty: entryValue.diaper?.dirty ?? false,
+        wet: entryValue.diaper?.wet ?? false,
+        color: entryValue.diaper?.color ?? '',
+        consistency: entryValue.diaper?.consistency ?? '',
+        comments: entryValue.diaper?.comments ?? ''
       } : null
     }; 
 
