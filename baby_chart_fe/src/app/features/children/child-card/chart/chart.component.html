@@ -1,40 +1,37 @@
 @if (chart()) {
-    <p>Chart ID: {{ chart()?.id }} </p>
-    <p>Date Initiated: {{ chart()?.date }} </p>
-    <button (click)="openEntryModal()">Add Entry</button>
-    <!-- potential @for directive here (e of entries; track e.id)  -->
-     @for (e of returnedEntries(); track e.id) {
-     <div class="entry-card">
-      <p>Entry ID: {{ e.id }}</p>
-      <p>Date-Time Submitted: {{ e.time | date: 'short' }}</p>
-      <p>Bath: {{ e.bath ? 'Yes' : 'No' }}</p>
-      <p>Diaper:</p>
-        @if(e.diaper?.dirty){
-          <p>Dirty: {{ e.diaper?.dirty ? 'Yes' : 'No' }}</p>
-          <p>Color: {{ e.diaper?.color || 'N/A' }}</p>
-          <p>Consistency: {{ e.diaper?.consistency || 'N/A' }}</p>
-        } @else if(e.diaper?.wet){
-          <p>Wet: {{ e.diaper?.wet ? 'Yes' : 'No' }}</p>
-        } @else {
-          <p>Diaper was not changed.</p>
-        }
-      <p>Feeding:</p>
-        @if (e.feeding?.bottle || e.feeding?.breast){
-          <p>Amount: {{ e.feeding?.amount ? (e.feeding?.amount + ' oz') : 'N/A' }}</p>
-          <p>Bottle: {{ e.feeding?.bottle ? 'Yes' : 'No' }}</p>
-          <p>Breast: {{ e.feeding?.breast ? 'Yes' : 'No' }}</p>
-        } @else {
-          <p>None.</p>
-        }
-      <p>Medication: {{ e.medication || 'None' }}</p>
-      <p>Comments: {{ e.comments || 'None' }}</p>
-      <button (click)="deleteEntryHandler(e)">Delete Entry</button>
-      <button (click)="openUpdateModal(e)">Update Entry</button>
-    </div>
-    }
-    
-}
-@else {
-  <p>No chart data available.</p>
-  <button (click)="showChartHandler()">Refresh</button>
+<p>Chart ID: {{ chart()?.id }}</p>
+<p>Date Initiated: {{ chart()?.date }}</p>
+<button (click)="openEntryModal()">Add Entry</button>
+<!-- potential @for directive here (e of entries; track e.id)  -->
+@for (e of returnedEntries(); track e.id) {
+<div class="entry-card">
+  <p>Entry ID: {{ e.id }}</p>
+  <p>Date-Time Submitted: {{ e.time | date : "short" }}</p>
+  <p>Bath: {{ e.bath ? "Yes" : "No" }}</p>
+  <p>Diaper:</p>
+  @if(e.diaper?.dirty){
+  <p>Dirty: {{ e.diaper?.dirty ? "Yes" : "No" }}</p>
+  <p>Color: {{ e.diaper?.color || "N/A" }}</p>
+  <p>Consistency: {{ e.diaper?.consistency || "N/A" }}</p>
+  } @else if(e.diaper?.wet){
+  <p>Wet: {{ e.diaper?.wet ? "Yes" : "No" }}</p>
+  } @else {
+  <p>Diaper was not changed.</p>
+  }
+  <p>Feeding:</p>
+  @if (e.feeding?.bottle || e.feeding?.breast){
+  <p>Amount: {{ e.feeding?.amount ? e.feeding?.amount + " oz" : "N/A" }}</p>
+  <p>Bottle: {{ e.feeding?.bottle ? "Yes" : "No" }}</p>
+  <p>Breast: {{ e.feeding?.breast ? "Yes" : "No" }}</p>
+  } @else {
+  <p>None.</p>
+  }
+  <p>Medication: {{ e.medication || "None" }}</p>
+  <p>Comments: {{ e.comments || "None" }}</p>
+  <button (click)="deleteEntryHandler(e)">Delete Entry</button>
+  <button (click)="openUpdateModal(e)">Update Entry</button>
+</div>
+} } @else {
+<p>No chart data available.</p>
+<button (click)="showChartHandler()">Refresh</button>
 }

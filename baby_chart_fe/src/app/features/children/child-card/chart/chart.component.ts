@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, OnInit, Signal, signal, SimpleChanges, WritableSignal } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { ChartService } from '../../../../../shared/services/chart.service';
 import { Chart } from '../../../../../shared/models/chart';
 import { Child } from '../../../../../shared/models/child';
@@ -14,111 +20,119 @@ import { EntryNoDiaperFeedingAttributes } from '../../../../../shared/models/ent
   selector: 'app-chart',
   imports: [CommonModule],
   templateUrl: './chart.component.html',
-  styleUrl: './chart.component.css'
+  styleUrl: './chart.component.css',
 })
-export class ChartComponent implements OnInit{
+export class ChartComponent implements OnInit {
   @Input() child: Child | null = null; //child data from html passed as 'c'
   chart: WritableSignal<Chart | null> = signal<Chart | null>(null);
   entries: WritableSignal<Entry[]> = signal<Entry[]>([]);
-  returnedEntries: WritableSignal<EntryNoDiaperFeedingAttributes[]> = signal<EntryNoDiaperFeedingAttributes[]>([]);
+  returnedEntries: WritableSignal<EntryNoDiaperFeedingAttributes[]> = signal<
+    EntryNoDiaperFeedingAttributes[]
+  >([]);
 
-  constructor(private chartService: ChartService, private dialog: MatDialog){}
+  constructor(private chartService: ChartService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-     this.chart.set(this.child?.chart!)  
+    this.chart.set(this.child?.chart!);
 
-     if (this.child?.id) {
-      this.chartService.indexEntriesByChildId(this.child.id).subscribe(result => {
-        this.entries.set(result);
-        this.returnedEntries.set(result);
-        console.log(result) //remove when done, will take up a lot of room
-      });
+    if (this.child?.id) {
+      this.chartService
+        .indexEntriesByChildId(this.child.id)
+        .subscribe((result) => {
+          this.entries.set(result);
+          this.returnedEntries.set(result);
+          console.log(result); //remove when done, will take up a lot of room
+        });
     }
   }
 
-  openEntryModal(){
+  openEntryModal() {
     const dialogRef = this.dialog.open(EntryModalComponent, {
       height: '400px',
       width: '600px',
-      data: {childId: this.child!.id}
+      data: { childId: this.child!.id },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result)
-        const newEntryList = [...this.entries(), result,]; //spread old entries and add new entry (result)
-        console.log(newEntryList)
+        console.log(result);
+        const newEntryList = [...this.entries(), result]; //spread old entries and add new entry (result)
+        console.log(newEntryList);
         this.entries.set(newEntryList); // set to signal triggers change detection
         this.returnedEntries.set(newEntryList); // set to signal triggers change detection
-        console.log(this.entries())
-        console.log(this.entries)
+        console.log(this.entries());
+        console.log(this.entries);
       }
     });
   }
 
-  openUpdateModal(e:EntryNoDiaperFeedingAttributes){
-    console.log(e)
+  openUpdateModal(e: EntryNoDiaperFeedingAttributes) {
+    console.log(e);
     const dialogRef = this.dialog.open(UpdateEntryModalComponent, {
       height: '400px',
       width: '600px',
       data: {
         childId: this.child!.id,
-        entry: e
-      }
+        entry: e,
+      },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const updatedEntries = this.entries().map(entry => entry.id === result.id ? result : entry);
+        const updatedEntries = this.entries().map((entry) =>
+          entry.id === result.id ? result : entry
+        );
         this.entries.set(updatedEntries); // set to signal triggers change detection
         this.returnedEntries.set(updatedEntries); // set to signal triggers change detection
-        console.log(result)
-        console.log(this.entries)
+        console.log(result);
+        console.log(this.entries);
         console.log('Entry successfully updated');
       }
     });
   }
 
   showChartHandler() {
-  if (!this.child?.id) {
-    console.error('Child ID is missing');
-    return;
-  }
-  
-  console.log('Fetching chart for child ID:', this.child.id);
-  
-  this.chartService.showChartByChildId(this.child.id).subscribe({
-    next: (res) => { 
-      this.chart.set(res);
-      console.log('Chart loaded successfully:', res);
-    },
-    error: (err) => {
-      console.error('Error loading chart:', err);
+    if (!this.child?.id) {
+      console.error('Child ID is missing');
+      return;
     }
-  });
- }
 
- deleteEntryHandler(e: Entry){
-  console.log(e)
+    console.log('Fetching chart for child ID:', this.child.id);
 
-  let userConfirmed= confirm(`Are you sure you want to delete entry ${e.id!}`);
-
-  if (userConfirmed){
-    this.chartService.deleteEntry(this.child!.id, e.id!).subscribe({
-      next: () => { 
-        const updatedEntries = this.entries().filter(entry => entry.id !== e.id); //get all the entries from the array that do not equal the submitted 
-        console.log(updatedEntries)
-        this.entries.set(updatedEntries); //change detection
-        this.returnedEntries.set(updatedEntries)
-        console.log(this.entries)
-        console.log('Entry successfully deleted');
+    this.chartService.showChartByChildId(this.child.id).subscribe({
+      next: (res) => {
+        this.chart.set(res);
+        console.log('Chart loaded successfully:', res);
       },
       error: (err) => {
-        console.error('Error updating chart:', err);
-      }
+        console.error('Error loading chart:', err);
+      },
     });
   }
- }
 
+  deleteEntryHandler(e: Entry) {
+    console.log(e);
 
+    let userConfirmed = confirm(
+      `Are you sure you want to delete entry ${e.id!}`
+    );
+
+    if (userConfirmed) {
+      this.chartService.deleteEntry(this.child!.id, e.id!).subscribe({
+        next: () => {
+          const updatedEntries = this.entries().filter(
+            (entry) => entry.id !== e.id
+          ); //get all the entries from the array that do not equal the submitted
+          console.log(updatedEntries);
+          this.entries.set(updatedEntries); //change detection
+          this.returnedEntries.set(updatedEntries);
+          console.log(this.entries);
+          console.log('Entry successfully deleted');
+        },
+        error: (err) => {
+          console.error('Error updating chart:', err);
+        },
+      });
+    }
+  }
 }
