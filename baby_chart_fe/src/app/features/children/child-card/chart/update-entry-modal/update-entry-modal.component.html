@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Edit Entry {{data.entry!.id}} <!-- maybe dynamic child name "new entry for {{child}}" --></h2>
 <div mat-dialog-content class="modal">
-  <form [formGroup]="newEntryForm" (ngSubmit)="submitEntryUpdateHandler()">
+  <form [formGroup]="updateEntryForm" (ngSubmit)="submitEntryUpdateHandler()">
     <!-- main field -->
     <mat-form-field appearance="outline">
       <mat-label>Time</mat-label>
@@ -9,8 +9,8 @@
       <mat-checkbox formControlName="bath">Bath Given</mat-checkbox>
       
     <!-- feeding details -->
-     <mat-checkbox formControlName="feeding">Feeding</mat-checkbox>
-     @if (newEntryForm.get('feeding')?.value){ <!-- gets value from above checkbox -->
+     <mat-checkbox formControlName="feedingBool">Feeding</mat-checkbox>
+     @if (updateEntryForm.get('feedingBool')?.value){ <!-- gets value from above checkbox -->
       <div formGroupName="feeding" class="nested-group">
         <mat-checkbox formControlName="bottle">Bottle</mat-checkbox>
         <mat-checkbox formControlName="breast">Breast</mat-checkbox>
@@ -22,8 +22,8 @@
      } 
     
     <!-- diaper details -->
-     <mat-checkbox formControlName="diaper">Diaper</mat-checkbox>
-     @if (newEntryForm.get('diaper')?.value){ <!-- gets value from above checkbox -->
+     <mat-checkbox formControlName="diaperBool">Diaper</mat-checkbox>
+     @if (updateEntryForm.get('diaperBool')?.value){ <!-- gets value from above checkbox -->
       <div formGroupName="diaper" class="nested-group">
         <mat-checkbox formControlName="dirty">Dirty</mat-checkbox>
         <mat-checkbox formControlName="wet">Wet</mat-checkbox>
@@ -42,7 +42,7 @@
 
     <!-- medication -->
     <mat-checkbox formControlName="medicationBool">Medication</mat-checkbox>
-    @if (newEntryForm.get('medicationBool')?.value){
+    @if (updateEntryForm.get('medicationBool')?.value){
       <div formGroupName="medicationDetails" class="nested-group">
         <mat-form-field appearance="outline">
           <mat-label>Enter Medication Name and Dose</mat-label>
@@ -58,5 +58,5 @@
       <textarea matInput formControlName="comments" rows="2"></textarea>
     </mat-form-field>
     <button mat-button (click)="onCancel()">Cancel</button>
-    <button mat-raised-button type="submit" [disabled]="newEntryForm.invalid">Submit</button>
+    <button mat-raised-button type="submit" [disabled]="updateEntryForm.invalid">Submit</button>
   </form>

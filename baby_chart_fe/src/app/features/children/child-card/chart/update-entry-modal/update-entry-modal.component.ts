@@ -18,7 +18,7 @@ export class UpdateEntryModalComponent implements OnInit{
 
   constructor(public dialogRef: MatDialogRef<UpdateEntryModalComponent>, private chartService: ChartService, @Inject(MAT_DIALOG_DATA) public data: { childId: number, entry?: EntryNoDiaperFeedingAttributes }){}
 
-  newEntryForm = new FormGroup({
+  updateEntryForm = new FormGroup({
      time: new FormControl(new Date().toISOString(), Validators.required), // or time when submitted
      medicationBool: new FormControl(false),
      medicationDetails: new FormGroup({
@@ -27,6 +27,7 @@ export class UpdateEntryModalComponent implements OnInit{
      bath: new FormControl(false),
      comments: new FormControl(''),
      //new formGroup (wowzers, a different group of the form) 
+     feedingBool: new FormControl(false),
      feeding: new FormGroup({
         bottle: new FormControl(false),
         breast: new FormControl(false),
@@ -35,6 +36,7 @@ export class UpdateEntryModalComponent implements OnInit{
           /* Validators.required */
         ])
       }),
+    diaperBool: new FormControl(false),
     diaper: new FormGroup({
         dirty: new FormControl(false),
         wet: new FormControl(false),
@@ -49,7 +51,7 @@ export class UpdateEntryModalComponent implements OnInit{
     if (this.data.entry){
       let e = this.data.entry;
 
-      this.newEntryForm.patchValue({
+      this.updateEntryForm.patchValue({
           time: e.time ? new Date(e.time).toISOString() : new Date().toISOString(),
         medicationBool: !!e.medication,
         medicationDetails: {
@@ -57,11 +59,13 @@ export class UpdateEntryModalComponent implements OnInit{
         },
         bath: e.bath ?? false,
         comments: e.comments ?? '',
+        feedingBool: !!e.feeding,
         feeding: {
           bottle: e.feeding?.bottle ?? false,
           breast: e.feeding?.breast ?? false,
           amount: e.feeding?.amount ?? 0
         },
+        diaperBool: !!e.diaper,
         diaper: {
           dirty: e.diaper?.dirty ?? false,
           wet: e.diaper?.wet ?? false,
@@ -74,9 +78,9 @@ export class UpdateEntryModalComponent implements OnInit{
   }
 
   submitEntryUpdateHandler(): void{
-    if (this.newEntryForm.valid){
-      const entryValue = this.newEntryForm.value;
-      this.dialogRef.close(this.newEntryForm.value)
+    if (this.updateEntryForm.valid){
+      const entryValue = this.updateEntryForm.value;
+      //this.dialogRef.close(this.newEntryForm.value)
 
     //assign as entry to avoid runtime issues i guess
     const updatedEntry = {
@@ -84,12 +88,12 @@ export class UpdateEntryModalComponent implements OnInit{
       medication: entryValue.medicationBool ? (entryValue.medicationDetails?.medication ?? null) : null,
       bath: entryValue.bath ?? false,
       comments: entryValue.comments ?? '',
-      feeding: entryValue.feeding ? {
+      feeding_attributes: entryValue.feedingBool ? ({
         bottle: entryValue.feeding?.bottle ?? false,
         breast: entryValue.feeding?.breast ?? false,
         amount: entryValue.feeding?.amount ?? 0
-      } : null,
-      diaper: entryValue.diaper ? {
+      }) : null,
+      diaper_attributes: entryValue.diaperBool ? {
         dirty: entryValue.diaper?.dirty ?? false,
         wet: entryValue.diaper?.wet ?? false,
         color: entryValue.diaper?.color ?? '',
