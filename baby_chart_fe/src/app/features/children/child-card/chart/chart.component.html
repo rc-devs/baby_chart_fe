@@ -3,7 +3,7 @@
     <p>Date Initiated: {{ chart()?.date }} </p>
     <button (click)="openEntryModal()">Add Entry</button>
     <!-- potential @for directive here (e of entries; track e.id)  -->
-     @for (e of entries(); track e.id) {
+     @for (e of returnedEntries(); track e.id) {
      <div class="entry-card">
       <p>Entry ID: {{ e.id }}</p>
       <p>Date-Time Submitted: {{ e.time | date: 'short' }}</p>
@@ -24,7 +24,7 @@
 
       <p>Feeding:</p>
         @if (e.feeding?.bottle || e.feeding?.breast){
-          <p>Amount: {{ e.feeding?.amount ? (e.feeding?.amount + ' mL') : 'N/A' }}</p>
+          <p>Amount: {{ e.feeding?.amount ? (e.feeding?.amount + ' oz') : 'N/A' }}</p>
           <p>Bottle: {{ e.feeding?.bottle ? 'Yes' : 'No' }}</p>
           <p>Breast: {{ e.feeding?.breast ? 'Yes' : 'No' }}</p>
         } @else {
@@ -34,7 +34,7 @@
       <p>Medication: {{ e.medication || 'None' }}</p>
       <p>Comments: {{ e.comments || 'None' }}</p>
       <button (click)="deleteEntryHandler(e)">Delete Entry</button>
-      <button (click)="updateEntryHandler(e)">Update Entry</button>
+      <button (click)="openUpdateModal(e)">Update Entry</button>
     </div>
     }
     
