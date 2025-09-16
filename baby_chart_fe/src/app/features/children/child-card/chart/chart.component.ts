@@ -58,6 +58,7 @@ export class ChartComponent implements OnInit/* , OnChanges */{
         const newEntryList = [...this.entries(), result,]; //spread old entries and add new entry (result)
         console.log(newEntryList)
         this.entries.set(newEntryList); // set to signal triggers change detection
+        this.returnedEntries.set(newEntryList); // set to signal triggers change detection
         console.log(this.entries())
         console.log(this.entries)
       }
@@ -78,7 +79,8 @@ export class ChartComponent implements OnInit/* , OnChanges */{
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const updatedEntries = this.entries().map(entry => entry.id === result.id ? result : entry);
-        this.entries.set(updatedEntries);
+        this.entries.set(updatedEntries); // set to signal triggers change detection
+        this.returnedEntries.set(updatedEntries); // set to signal triggers change detection
         console.log(this.entries)
         console.log('Entry successfully updated');
       }
@@ -115,6 +117,7 @@ export class ChartComponent implements OnInit/* , OnChanges */{
         const updatedEntries = this.entries().filter(entry => entry.id !== e.id); //get all the entries from the array that do not equal the submitted 
         console.log(updatedEntries)
         this.entries.set(updatedEntries); //change detection
+        this.returnedEntries.set(updatedEntries)
         console.log(this.entries)
         console.log('Entry successfully deleted');
       },
