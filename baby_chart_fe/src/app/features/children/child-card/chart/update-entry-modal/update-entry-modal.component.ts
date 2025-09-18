@@ -14,7 +14,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ChartService } from '../../../../../../shared/services/chart.service';
-import { Entry } from '../../../../../../shared/models/entry';
+//import { Entry } from '../../../../../../shared/models/entry';
 import { EntryNoDiaperFeedingAttributes } from '../../../../../../shared/models/entryNoDiaperFeedingAttributes';
 
 @Component({
@@ -134,7 +134,7 @@ export class UpdateEntryModalComponent implements OnInit {
         .updateEntry(
           this.data.childId,
           this.data.entry!.id!,
-          updatedEntry as Entry
+          updatedEntry as EntryNoDiaperFeedingAttributes
         )
         .subscribe({
           next: (res) => {

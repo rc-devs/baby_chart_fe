@@ -11,8 +11,7 @@ import { Child } from '../../../../../shared/models/child';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { EntryModalComponent } from './entry-modal/entry-modal.component';
-import { Entry } from '../../../../../shared/models/entry';
-import { toSignal } from '@angular/core/rxjs-interop';
+//import { Entry } from '../../../../../shared/models/entry';
 import { UpdateEntryModalComponent } from './update-entry-modal/update-entry-modal.component';
 import { EntryNoDiaperFeedingAttributes } from '../../../../../shared/models/entryNoDiaperFeedingAttributes';
 
@@ -25,7 +24,7 @@ import { EntryNoDiaperFeedingAttributes } from '../../../../../shared/models/ent
 export class ChartComponent implements OnInit {
   @Input() child: Child | null = null; //child data from html passed as 'c'
   chart: WritableSignal<Chart | null> = signal<Chart | null>(null);
-  entries: WritableSignal<Entry[]> = signal<Entry[]>([]);
+  //entries: WritableSignal<Entry[]> = signal<Entry[]>([]);
   returnedEntries: WritableSignal<EntryNoDiaperFeedingAttributes[]> = signal<
     EntryNoDiaperFeedingAttributes[]
   >([]);
@@ -33,13 +32,13 @@ export class ChartComponent implements OnInit {
   constructor(private chartService: ChartService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.chart.set(this.child?.chart!);
+    this.chart.set(this.child?.chart!); //sets chart on init
 
-    if (this.child?.id) {
+    if (this.child?.id) { //if child has id
       this.chartService
-        .indexEntriesByChildId(this.child.id)
+        .indexEntriesByChildId(this.child.id) //index (get chart) using service, subscribe to results
         .subscribe((result) => {
-          this.entries.set(result);
+         // this.entries.set(result);
           this.returnedEntries.set(result);
           console.log(result); //remove when done, will take up a lot of room
         });
@@ -56,12 +55,13 @@ export class ChartComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log(result);
-        const newEntryList = [...this.entries(), result]; //spread old entries and add new entry (result)
+        //const newEntryList = [...this.entries(), result]; //spread old entries and add new entry (result)
+        const newEntryList = [...this.returnedEntries(), result]; //spread old entries and add new entry (result)
         console.log(newEntryList);
-        this.entries.set(newEntryList); // set to signal triggers change detection
+        //this.entries.set(newEntryList); // set to signal triggers change detection
         this.returnedEntries.set(newEntryList); // set to signal triggers change detection
-        console.log(this.entries());
-        console.log(this.entries);
+        //console.log(this.entries());
+        console.log(this.returnedEntries());
       }
     });
   }
@@ -79,13 +79,18 @@ export class ChartComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const updatedEntries = this.entries().map((entry) =>
+        /* const updatedEntries = this.entries().map((entry) =>
+          entry.id === result.id ? result : entry
+        ); */
+
+        const updatedEntries = this.returnedEntries().map((entry) =>
           entry.id === result.id ? result : entry
         );
-        this.entries.set(updatedEntries); // set to signal triggers change detection
+        //this.entries.set(updatedEntries); // set to signal triggers change detection
         this.returnedEntries.set(updatedEntries); // set to signal triggers change detection
         console.log(result);
-        console.log(this.entries);
+        //console.log(this.entries);
+        console.log(this.returnedEntries)
         console.log('Entry successfully updated');
       }
     });
@@ -110,7 +115,7 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  deleteEntryHandler(e: Entry) {
+  deleteEntryHandler(e: EntryNoDiaperFeedingAttributes) {
     console.log(e);
 
     let userConfirmed = confirm(
@@ -120,13 +125,13 @@ export class ChartComponent implements OnInit {
     if (userConfirmed) {
       this.chartService.deleteEntry(this.child!.id, e.id!).subscribe({
         next: () => {
-          const updatedEntries = this.entries().filter(
+          const updatedEntries = this.returnedEntries().filter(
             (entry) => entry.id !== e.id
           ); //get all the entries from the array that do not equal the submitted
           console.log(updatedEntries);
-          this.entries.set(updatedEntries); //change detection
-          this.returnedEntries.set(updatedEntries);
-          console.log(this.entries);
+          //this.entries.set(updatedEntries); //change detection
+          this.returnedEntries.set(updatedEntries); //change detection
+          console.log(this.returnedEntries);
           console.log('Entry successfully deleted');
         },
         error: (err) => {
