@@ -51,6 +51,11 @@ export const routes: Routes = [
             canActivate: [authGuard]
               }
             ]
+          },
+          {
+            path: 'add-caregiver', 
+            loadComponent: () => import('./features/children/add-caregiver/add-caregiver.component').then((c) => c.AddCaregiverComponent),
+            canActivate: [authGuard],
           }
         ]
       }
