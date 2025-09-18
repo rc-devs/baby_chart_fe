@@ -2,7 +2,6 @@
 <p>Chart ID: {{ chart()?.id }}</p>
 <p>Date Initiated: {{ chart()?.date }}</p>
 <button (click)="openEntryModal()">Add Entry</button>
-<!-- potential @for directive here (e of entries; track e.id)  -->
 @for (e of returnedEntries(); track e.id) {
 <div class="entry-card">
   <p>Entry ID: {{ e.id }}</p>
