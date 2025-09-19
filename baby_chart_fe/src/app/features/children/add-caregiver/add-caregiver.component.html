@@ -8,7 +8,11 @@
    <!-- only names, will patch ids for submission -->
    <form [formGroup]="caregiverForm">
     <label for="username">Select User</label>
-    <input type="text" [formControl]="caregiverForm.controls.username">
+    <select [formControl]="caregiverForm.controls.username">
+      @for (cg of caregivers(); track cg.id){
+        <option [value]="cg.username">
+          <p>{{cg.username}}</p>
+        </option>
+       }  
     <label for="childName">Child</label>
-    <input type="text" [formControl]="caregiverForm.controls.childName">
-   </form>
+    <select [formControl]="caregiverForm.controls.childName">
