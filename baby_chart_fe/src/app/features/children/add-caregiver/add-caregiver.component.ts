@@ -1,5 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../../shared/models/user';
 import { CaregiverService } from '../../../../shared/services/caregiver.service';
 
@@ -15,7 +15,10 @@ export class AddCaregiverComponent implements OnInit {
   constructor(private caregiverService: CaregiverService){}
 
   caregiverForm = new FormGroup({
-
+    username: new FormControl('', Validators.required),
+    userId: new FormControl('', Validators.required),
+    childName: new FormControl(null, Validators.required),
+    childId: new FormControl(null, Validators.required),
   })
 
   ngOnInit(): void {
