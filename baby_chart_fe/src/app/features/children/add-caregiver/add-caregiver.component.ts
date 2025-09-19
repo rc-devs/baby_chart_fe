@@ -35,7 +35,11 @@ export class AddCaregiverComponent implements OnInit {
       });
     }
   });
-  this.caregivers.set(this.caregiverService.caregivers);
+  this.userService.getAllUsers().subscribe((allUsers)=> {
+    if (allUsers){
+      this.caregivers.set(allUsers);
+    }
+  })
 }
 
 }
