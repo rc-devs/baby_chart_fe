@@ -7,12 +7,21 @@
   <!-- form for adding additonal caregivers -->
    <!-- only names, will patch ids for submission -->
    <form [formGroup]="caregiverForm">
-    <label for="username">Select User</label>
+    <label for="username">Select user you wish to grant access to child's chart (will be able to edit and delete entries)</label>
     <select [formControl]="caregiverForm.controls.username">
       @for (cg of caregivers(); track cg.id){
         <option [value]="cg.username">
-          <p>{{cg.username}}</p>
+          {{cg.username}}
         </option>
        }  
-    <label for="childName">Child</label>
+    </select>
+    <br>
+    <label for="childName">Select Child the User will have access to</label>
     <select [formControl]="caregiverForm.controls.childName">
+      @for (c of children(); track c.id){
+        <option [value]="c.child_name">
+          {{c.child_name}}
+        </option>
+      }
+    </select>
+  </form>
