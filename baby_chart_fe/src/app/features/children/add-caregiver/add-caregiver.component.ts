@@ -1,11 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../../shared/models/user';
 import { CaregiverService } from '../../../../shared/services/caregiver.service';
 
 @Component({
   selector: 'app-add-caregiver',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './add-caregiver.component.html',
   styleUrl: './add-caregiver.component.css'
 })
