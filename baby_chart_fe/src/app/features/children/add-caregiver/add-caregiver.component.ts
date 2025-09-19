@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { User } from '../../../../shared/models/user';
 
 @Component({
   selector: 'app-add-caregiver',
@@ -8,4 +10,7 @@ import { Component } from '@angular/core';
 })
 export class AddCaregiverComponent {
 
+  caregiverForm = new FormGroup({
+
+  })
 }
