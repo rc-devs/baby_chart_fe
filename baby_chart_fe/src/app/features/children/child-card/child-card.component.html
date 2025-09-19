@@ -3,6 +3,7 @@
     <div class="child-card">
       <p>Child Name: {{c.child_name}}</p>
       <p>Child DOB: {{c.date_of_birth}}</p>
+      <!--  <h4>Current Caregivers</h4>associated caregivers @for (cg of caregivers(); track cg.username) or something)-->
       <button (click)="displayChildToEdit(c)">Edit Child Information</button>
       <app-chart [child]="(c)"></app-chart>
     </div>
@@ -10,6 +11,7 @@
 } @else {
   <div class="child-card">
     <form [formGroup]="editChildForm" (ngSubmit)="editChildHandler(childToEdit!.id)">
+      <h3>Child Information</h3>
       <label for="child_name">Child Name: </label>
         <input type="text" [formControl]="editChildForm.controls.child_name">
       <label for="date_of_birth">Child DOB: </label>
@@ -18,5 +20,8 @@
       <button class="btn-danger" (click)="deleteHandler(childToEdit!.child_name, childToEdit!.id)">Delete</button>
       <button (click)="cancelEditHandler()">Cancel</button>
     </form> 
+    
+     <h4>Current Caregivers</h4> 
+     @for (cg of caregivers(); track cg.username){}
   </div>
 }

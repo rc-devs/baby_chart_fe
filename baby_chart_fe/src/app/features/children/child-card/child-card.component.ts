@@ -7,6 +7,7 @@ import { User } from '../../../../shared/models/user';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule} from '@angular/router';
 import { ChartComponent } from './chart/chart.component';
+import { CaregiverService } from '../../../../shared/services/caregiver.service';
 
 @Component({
   selector: 'app-child-card',
@@ -22,8 +23,10 @@ export class ChildCardComponent implements OnInit{
   displayEditCard = signal<boolean>(false);
   childToEdit: Child | null = null;
   selectedChild: Child | null = null;
+  caregivers = signal<User[]>([])
+ 
 
-  constructor(private childService: ChildService, private userService: UserService, private authService: AuthenticationService){}
+  constructor(private childService: ChildService, private userService: UserService, private authService: AuthenticationService, private caregiverService: CaregiverService){}
 
   editChildForm = new FormGroup({
     child_name: new FormControl ('', [Validators.required]),
@@ -32,6 +35,7 @@ export class ChildCardComponent implements OnInit{
 
   ngOnInit(): void {
     this.userService.loadCurrentUserIfLoggedIn(this.authService); //get user data (if not, must visit profile or list does not load)
+    this.caregivers.set(this.caregiverService.caregivers()); //set caregiver signal with new array
     this.userService.currentUserSubject.subscribe((res) => {
       this.user.set(res); //assign user data to signal for display in html 
       if (res){ //if response successful, update form with returned values (which are assigned to user signal)
