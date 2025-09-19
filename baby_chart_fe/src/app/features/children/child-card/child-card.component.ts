@@ -8,6 +8,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterModule} from '@angular/router';
 import { ChartComponent } from './chart/chart.component';
 import { CaregiverService } from '../../../../shared/services/caregiver.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-child-card',
@@ -36,18 +37,26 @@ export class ChildCardComponent implements OnInit{
   ngOnInit(): void {
     this.userService.loadCurrentUserIfLoggedIn(this.authService); //get user data (if not, must visit profile or list does not load)
     this.caregivers.set(this.caregiverService.caregivers); //set caregiver signal with new array
-    this.userService.currentUserSubject.subscribe((res) => {
-      this.user.set(res); //assign user data to signal for display in html 
-      if (res){ //if response successful, update form with returned values (which are assigned to user signal)
-       this.childService.indexChildren(this.user()!.id).subscribe((children) => this.children.set(children))
-       this.passChildObject(this.selectedChild!)
-      }
-    },
-     (error) => {
-      console.error(error);
-      return null;
+    this.userService.currentUserSubject.subscribe(
+  (res) => {
+    this.user.set(res);
+    if (res) {
+      // use forkjoin to submit both request and wait for both responses before continuing
+      forkJoin({
+        ownChildren: this.childService.indexChildren(res.id),
+        sharedChildren: this.childService.indexSharedChildren()
+      }).subscribe(({ ownChildren, sharedChildren }) => {
+        this.children.set([...ownChildren, ...sharedChildren]); //spread together and set to object
+        this.passChildObject(this.selectedChild!);
+        console.log(this.children());
+      });
     }
-  ); 
+  },
+  (error) => {
+    console.error(error);
+    return null;
+  }
+);
   }
 
   passChildObject(c: Child) {
