@@ -1,4 +1,4 @@
-import { Component, effect, OnInit, signal } from '@angular/core';
+import { Component, effect, numberAttribute, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../../shared/models/user';
 import { CaregiverService } from '../../../../shared/services/caregiver.service';
@@ -20,10 +20,8 @@ export class AddCaregiverComponent implements OnInit {
   constructor(private caregiverService: CaregiverService, private childService: ChildService, private userService: UserService){}
 
   caregiverForm = new FormGroup({
-    //username: new FormControl('', Validators.required),
-    userId: new FormControl('', Validators.required),
-    //childName: new FormControl(null, Validators.required),
-    childId: new FormControl(null, Validators.required),
+    userId: new FormControl<number | null>(null, Validators.required),
+    childId: new FormControl<number | null>(null, Validators.required),
   })
 
 
@@ -44,11 +42,16 @@ export class AddCaregiverComponent implements OnInit {
 
 addCaregiverHandler(){
   if (this.caregiverForm.valid) {
-    const userId = this.caregiverForm.value.userId;
-    const childId = this.caregiverForm.value.childId;
+    const userId = Number(this.caregiverForm.value.userId);
+    const childId = Number(this.caregiverForm.value.childId);
 
-     console.log('User ID:', userId);
+    console.log('User ID:', userId);
     console.log('Child ID:', childId);
+
+    this.caregiverService.addAccessToCaregiver(userId, childId).subscribe({
+        next: () => console.log('Caregiver access added successfully'),
+        error: (err) => console.error('Error adding caregiver access:', err)
+      });
   } else {
     console.log('there was some error')
   }
