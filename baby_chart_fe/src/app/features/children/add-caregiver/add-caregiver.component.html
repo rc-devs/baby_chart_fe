@@ -1,1 +1,5 @@
-<p>add-caregiver works!</p>
+ @for (cg of caregivers(); track cg.id){
+  <p>{{cg.name_first}}</p>
+  <p>{{cg.username}}</p>
+  <p>{{cg.email}}</p>
+  }
