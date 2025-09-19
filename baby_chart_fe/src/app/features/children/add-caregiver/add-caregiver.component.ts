@@ -20,9 +20,9 @@ export class AddCaregiverComponent implements OnInit {
   constructor(private caregiverService: CaregiverService, private childService: ChildService, private userService: UserService){}
 
   caregiverForm = new FormGroup({
-    username: new FormControl('', Validators.required),
+    //username: new FormControl('', Validators.required),
     userId: new FormControl('', Validators.required),
-    childName: new FormControl(null, Validators.required),
+    //childName: new FormControl(null, Validators.required),
     childId: new FormControl(null, Validators.required),
   })
 
@@ -42,4 +42,15 @@ export class AddCaregiverComponent implements OnInit {
   })
 }
 
+addCaregiverHandler(){
+  if (this.caregiverForm.valid) {
+    const userId = this.caregiverForm.value.userId;
+    const childId = this.caregiverForm.value.childId;
+
+     console.log('User ID:', userId);
+    console.log('Child ID:', childId);
+  } else {
+    console.log('there was some error')
+  }
+ }
 }

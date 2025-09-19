@@ -1,21 +1,22 @@
   <!-- form for adding additonal caregivers -->
    <!-- only names, will patch ids for submission -->
-   <form [formGroup]="caregiverForm">
-    <label for="username">Select user you wish to grant access to child's chart (will be able to edit and delete entries)</label>
-    <select [formControl]="caregiverForm.controls.username">
+   <form [formGroup]="caregiverForm" (ngSubmit)="addCaregiverHandler()">
+    <label for="userId">Select user you wish to grant access to child's chart (will be able to edit and delete entries)</label>
+    <select [formControl]="caregiverForm.controls.userId">
       @for (cg of caregivers(); track cg.id){
-        <option [value]="cg.username">
+        <option [value]="cg.id">
           {{cg.username}}
         </option>
        }  
     </select>
     <br>
-    <label for="childName">Select Child the User will have access to</label>
-    <select [formControl]="caregiverForm.controls.childName">
+    <label for="childId">Select Child the User will have access to</label>
+    <select [formControl]="caregiverForm.controls.childId">
       @for (c of children(); track c.id){
-        <option [value]="c.child_name">
+        <option [value]="c.id">
           {{c.child_name}}
         </option>
       }
     </select>
+    <button type="submit">Submit New Caregiver</button>
   </form>
