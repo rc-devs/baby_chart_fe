@@ -12,8 +12,13 @@ import { Router } from '@angular/router';
 export class UserService {
 currentUserSubject = new BehaviorSubject<User | null>(null);
 user = signal<User | null>(null);
+allUsers: User[] = []
 
   constructor(private http: HttpClient, private router: Router) {}
+
+  getAllUsers(){
+    return this.http.get<User[]>(`${environment.apiUrl}/users`); //normal view userblueprinter, no passwords
+  }
 
   assignCurrentUser(): void{
     this.currentUserSubject.subscribe((res) => this.user.set(res)) //assign user data to signal for display in html
