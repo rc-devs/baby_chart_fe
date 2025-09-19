@@ -1,5 +1,5 @@
 @if (!displayEditCard()){
-  @for (c of children(); track c.child_name){
+  @for (c of children(); track c.id){
     <div class="child-card">
       <p>Child Name: {{c.child_name}}</p>
       <p>Child DOB: {{c.date_of_birth}}</p>
