@@ -1,7 +1,10 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, effect, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../../shared/models/user';
 import { CaregiverService } from '../../../../shared/services/caregiver.service';
+import { ChildService } from '../../../../shared/services/child.service';
+import { Child } from '../../../../shared/models/child';
+import { UserService } from '../../../../shared/services/user.service';
 
 @Component({
   selector: 'app-add-caregiver',
@@ -11,8 +14,10 @@ import { CaregiverService } from '../../../../shared/services/caregiver.service'
 })
 export class AddCaregiverComponent implements OnInit {
   caregivers = signal<User[]>([])
+  children = signal<Child[]>([])
+  user = []
 
-  constructor(private caregiverService: CaregiverService){}
+  constructor(private caregiverService: CaregiverService, private childService: ChildService, private userService: UserService){}
 
   caregiverForm = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -21,7 +26,16 @@ export class AddCaregiverComponent implements OnInit {
     childId: new FormControl(null, Validators.required),
   })
 
-  ngOnInit(): void {
-   this.caregivers.set(this.caregiverService.caregivers); //set caregiver signal with caregiver array
-  }
+
+ ngOnInit(): void {
+   this.userService.currentUserSubject.subscribe((user) => {
+    if (user) {
+      this.childService.indexChildren(user.id).subscribe((children: Child[]) => {
+        this.children.set(children);
+      });
+    }
+  });
+  this.caregivers.set(this.caregiverService.caregivers);
+}
+
 }
