@@ -20,8 +20,12 @@
       <button class="btn-danger" (click)="deleteHandler(childToEdit!.child_name, childToEdit!.id)">Delete</button>
       <button (click)="cancelEditHandler()">Cancel</button>
     </form> 
-    
+
      <h4>Current Caregivers</h4> 
-     @for (cg of caregivers(); track cg.username){}
+     @for (cg of caregivers(); track cg.id){
+      <p>{{cg.name_first}}</p>
+      <p>{{cg.username}}</p>
+      <p>{{cg.email}}</p>
+     }
   </div>
 }
