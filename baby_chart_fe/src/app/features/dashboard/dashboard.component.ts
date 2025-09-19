@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../../../shared/services/authentication.service';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +11,10 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 })
 export class DashboardComponent {
   
-  constructor(public authService: AuthenticationService){}
+  constructor(public authService: AuthenticationService, private userService: UserService){}
+  
+  ngOnInit(): void {
+    this.userService.loadCurrentUserIfLoggedIn(this.authService)// get user data
+  } 
 
 }
