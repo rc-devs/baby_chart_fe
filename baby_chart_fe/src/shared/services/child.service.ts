@@ -18,8 +18,13 @@ export class ChildService {
     })
   }
 
+  //should combine index and shared into an index all method/endpoint
   indexChildren(user_id: number){
-     return this.http.get<Child[]>(`${environment.apiUrl}/children?id=${user_id}?include=chart`);
+     return this.http.get<Child[]>(`${environment.apiUrl}/children?id=${user_id}&include=chart`);
+  }
+
+  indexSharedChildren(){
+    return this.http.get<Child[]>(`${environment.apiUrl}/children/shared`);
   }
 
   deleteChild(child_id: number){
