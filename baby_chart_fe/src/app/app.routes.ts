@@ -3,7 +3,7 @@ import { authGuard } from '../shared/guards/auth.guard';
 import { noAuthGuard } from '../shared/guards/no-auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // set as dashboard when auth guards set
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
     path: 'login',
     loadComponent: () =>
@@ -24,6 +24,7 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
     children: [
+      { path: '', redirectTo: 'children', pathMatch: 'full' },
       {
         path: 'user-profile',
         loadComponent: () =>
@@ -48,6 +49,7 @@ export const routes: Routes = [
           ),
         canActivate: [authGuard],
         children: [
+          { path: '', redirectTo: 'child-card', pathMatch: 'full' },
           {
             path: 'add-child',
             loadComponent: () =>
