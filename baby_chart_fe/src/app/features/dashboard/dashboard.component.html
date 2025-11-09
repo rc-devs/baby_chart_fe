@@ -1,10 +1,22 @@
-<nav>
-  <button [routerLink]="['/dashboard/children']">Your Children</button>
-  <button [routerLink]="['/dashboard/user-profile']">Your Profile</button>
-  <button [routerLink]="['/dashboard/children/add-child']">Add Child</button>
+<div class="app-content">
+  <router-outlet></router-outlet>
+</div>
+
+<nav class="bottom-nav">
+  <button [routerLink]="['/dashboard/children']">
+    <span class="nav-icon">👶</span>
+    Children
+  </button>
+  <button [routerLink]="['/dashboard/children/add-child']">
+    <span class="nav-icon">➕</span>
+    Add Child
+  </button>
   <button [routerLink]="['/dashboard/children/add-caregiver']">
-    Manage Caregivers
+    <span class="nav-icon">👥</span>
+    Caregivers
+  </button>
+  <button [routerLink]="['/dashboard/user-profile']">
+    <span class="nav-icon">👤</span>
+    Profile
   </button>
 </nav>
-
-<router-outlet></router-outlet>
