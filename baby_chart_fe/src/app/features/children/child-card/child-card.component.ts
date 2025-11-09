@@ -1,11 +1,23 @@
-import { Component, EventEmitter, Input, OnInit, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { ChildService } from '../../../../shared/services/child.service';
 import { Child } from '../../../../shared/models/child';
 import { UserService } from '../../../../shared/services/user.service';
 import { AuthenticationService } from '../../../../shared/services/authentication.service';
 import { User } from '../../../../shared/models/user';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule} from '@angular/router';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { ChartComponent } from './chart/chart.component';
 import { CaregiverService } from '../../../../shared/services/caregiver.service';
 
@@ -13,9 +25,9 @@ import { CaregiverService } from '../../../../shared/services/caregiver.service'
   selector: 'app-child-card',
   imports: [ReactiveFormsModule, RouterModule, ChartComponent],
   templateUrl: './child-card.component.html',
-  styleUrl: './child-card.component.css'
+  styleUrl: './child-card.component.css',
 })
-export class ChildCardComponent implements OnInit{
+export class ChildCardComponent implements OnInit {
   @Input() child!: Child;
 
   children: WritableSignal<Child[]> = signal<Child[]>([]);
@@ -23,81 +35,105 @@ export class ChildCardComponent implements OnInit{
   displayEditCard = signal<boolean>(false);
   childToEdit: Child | null = null;
   selectedChild: Child | null = null;
-  caregivers = signal<User[]>([])
- 
+  caregivers = signal<User[]>([]);
+  displayChart = signal<boolean>(false);
 
-  constructor(private childService: ChildService, private userService: UserService, private authService: AuthenticationService, private caregiverService: CaregiverService){}
+  constructor(
+    private childService: ChildService,
+    private userService: UserService,
+    private authService: AuthenticationService,
+    private caregiverService: CaregiverService
+  ) {}
 
   editChildForm = new FormGroup({
-    child_name: new FormControl ('', [Validators.required]),
-    date_of_birth: new FormControl (null, [Validators.required])
-  })
+    child_name: new FormControl('', [Validators.required]),
+    date_of_birth: new FormControl(null, [Validators.required]),
+  });
 
   ngOnInit(): void {
     this.userService.loadCurrentUserIfLoggedIn(this.authService); //get user data (if not, must visit profile or list does not load)
     this.caregivers.set(this.caregiverService.caregivers); //set caregiver signal with new array
-    this.userService.currentUserSubject.subscribe((res) => {
-      this.user.set(res); //assign user data to signal for display in html 
-      if (res){ //if response successful, update with returned values (which are assigned to user signal)
-       this.childService.indexSharedChildren().subscribe((sharedChildren)=> this.children.set(sharedChildren));
-       this.passChildObject(this.selectedChild!);
-       console.log(this.children())
+    this.userService.currentUserSubject.subscribe(
+      (res) => {
+        this.user.set(res); //assign user data to signal for display in html
+        if (res) {
+          //if response successful, update with returned values (which are assigned to user signal)
+          this.childService
+            .indexSharedChildren()
+            .subscribe((sharedChildren) => this.children.set(sharedChildren));
+          this.passChildObject(this.selectedChild!);
+          console.log(this.children());
+        }
+      },
+      (error) => {
+        console.error(error);
+        return null;
       }
-    },
-     (error) => {
-      console.error(error);
-      return null;
-    }
-  ); 
+    );
   }
 
   passChildObject(c: Child) {
-    this.selectedChild = c
+    this.selectedChild = c;
   }
 
-  displayChildToEdit(c: Child){
+  displayChildToEdit(c: Child) {
     this.displayEditCard.set(!this.displayEditCard());
-    this.childToEdit = c
+    this.childToEdit = c;
 
     this.editChildForm.patchValue({
       child_name: c.child_name,
-    })
+    });
   }
 
-  cancelEditHandler(){
+  cancelEditHandler() {
     this.displayEditCard.set(this.displayEditCard());
   }
 
-  deleteHandler(child_name:string, id:number){
+  toggleChartCard() {
+    this.displayChart.set(!this.displayChart());
+    console.log(this.displayChart);
+  }
+
+  deleteHandler(child_name: string, id: number) {
     //include confirm as it is a destructive action
-    confirm(`This action cannot be undone. Are you sure you want to delete ${child_name}?`)
+    confirm(
+      `This action cannot be undone. Are you sure you want to delete ${child_name}?`
+    );
 
     //submit child id to backend, on response, refresh children, reset displayEditCard
     this.childService.deleteChild(id).subscribe({
-    next: (child) => {
-      this.childService.indexChildren(this.user()!.id).subscribe({
-        next: (children) => {
-          this.children.set(children);
-          this.displayEditCard.set(this.displayEditCard());
-        },
-        error: (err) => console.error('Error fetching children:', err),
-      });
-    },
-    error: (err) => console.error('Error deleting child:', err),
-  });
-   }
-
-  editChildHandler(child_id: number){
-    this.childService.editChild(this.editChildForm.value.child_name!, this.editChildForm.value.date_of_birth!, child_id).subscribe({
-      next: (updatedChild) => {
-        this.childService.indexChildren(this.user()!.id).subscribe((children) => this.children.set(children))
-        this.editChildForm.reset(); // reset form (redundant on display, possibly dangerous without if user submits empty form?)
-         this.displayEditCard.set(!this.displayEditCard()); 
+      next: (child) => {
+        this.childService.indexChildren(this.user()!.id).subscribe({
+          next: (children) => {
+            this.children.set(children);
+            this.displayEditCard.set(this.displayEditCard());
+          },
+          error: (err) => console.error('Error fetching children:', err),
+        });
       },
-      error(err){
-        alert("There was some sort of error")
-        console.log(err)
-      }
-    })
+      error: (err) => console.error('Error deleting child:', err),
+    });
+  }
+
+  editChildHandler(child_id: number) {
+    this.childService
+      .editChild(
+        this.editChildForm.value.child_name!,
+        this.editChildForm.value.date_of_birth!,
+        child_id
+      )
+      .subscribe({
+        next: (updatedChild) => {
+          this.childService
+            .indexChildren(this.user()!.id)
+            .subscribe((children) => this.children.set(children));
+          this.editChildForm.reset(); // reset form (redundant on display, possibly dangerous without if user submits empty form?)
+          this.displayEditCard.set(!this.displayEditCard());
+        },
+        error(err) {
+          alert('There was some sort of error');
+          console.log(err);
+        },
+      });
   }
 }

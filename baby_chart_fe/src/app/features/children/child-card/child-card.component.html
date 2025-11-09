@@ -1,31 +1,39 @@
-@if (!displayEditCard()){
-  @for (c of children(); track c.id){
-    <div class="child-card">
-      <p>Child Name: {{c.child_name}}</p>
-      <p>Child DOB: {{c.date_of_birth}}</p>
-      <!--  <h4>Current Caregivers</h4>associated caregivers @for (cg of caregivers(); track cg.username) or something)-->
-      <button (click)="displayChildToEdit(c)">Edit Child Information</button>
-      <app-chart [child]="(c)"></app-chart>
-    </div>
+@if (!displayEditCard()) { @for (c of children(); track c.id) {
+<div class="child-card">
+  <p>Child Name: {{ c.child_name }}</p>
+  <p>Child DOB: {{ c.date_of_birth }}</p>
+  <button (click)="displayChildToEdit(c)">Edit Child Information</button>
+  <button (click)="toggleChartCard()">Toggle {{ c.child_name }}'s Chart</button>
+  @if (displayChart()) {
+  <app-chart [child]="c"></app-chart>
   }
-} @else {
-  <div class="child-card">
-    <form [formGroup]="editChildForm" (ngSubmit)="editChildHandler(childToEdit!.id)">
-      <h3>Child Information</h3>
-      <label for="child_name">Child Name: </label>
-        <input type="text" [formControl]="editChildForm.controls.child_name">
-      <label for="date_of_birth">Child DOB: </label>
-        <input type="date" [formControl]="editChildForm.controls.date_of_birth">
-      <button type="submit">Submit</button>
-      <button class="btn-danger" (click)="deleteHandler(childToEdit!.child_name, childToEdit!.id)">Delete</button>
-      <button (click)="cancelEditHandler()">Cancel</button>
-    </form> 
+</div>
+} } @else {
+<div class="child-card">
+  <form
+    [formGroup]="editChildForm"
+    (ngSubmit)="editChildHandler(childToEdit!.id)"
+  >
+    <h3>Child Information</h3>
+    <label for="child_name">Child Name: </label>
+    <input type="text" [formControl]="editChildForm.controls.child_name" />
+    <label for="date_of_birth">Child DOB: </label>
+    <input type="date" [formControl]="editChildForm.controls.date_of_birth" />
+    <button type="submit">Submit</button>
+    <button
+      class="btn-danger"
+      (click)="deleteHandler(childToEdit!.child_name, childToEdit!.id)"
+    >
+      Delete
+    </button>
+    <button (click)="cancelEditHandler()">Cancel</button>
+  </form>
 
-     <h4>Current Caregivers</h4> 
-     @for (cg of caregivers(); track cg.id){
-      <p>{{cg.name_first}}</p>
-      <p>{{cg.username}}</p>
-      <p>{{cg.email}}</p>
-     }
-  </div>
+  <h4>Current Caregivers</h4>
+  @for (cg of caregivers(); track cg.id) {
+  <p>{{ cg.name_first }}</p>
+  <p>{{ cg.username }}</p>
+  <p>{{ cg.email }}</p>
+  }
+</div>
 }
