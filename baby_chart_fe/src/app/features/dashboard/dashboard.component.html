@@ -3,20 +3,20 @@
 </div>
 
 <nav class="bottom-nav">
-  <button [routerLink]="['/dashboard/children']">
-    <span class="nav-icon">👶</span>
-    Children
-  </button>
   <button [routerLink]="['/dashboard/children/add-child']">
-    <span class="nav-icon">➕</span>
+    <mat-icon class="nav-icon" fontIcon="add"></mat-icon>
     Add Child
   </button>
+  <button [routerLink]="['/dashboard/children']">
+    <mat-icon class="nav-icon" fontIcon="child_care"></mat-icon>
+    Children
+  </button>
   <button [routerLink]="['/dashboard/children/add-caregiver']">
-    <span class="nav-icon">👥</span>
+    <mat-icon class="nav-icon" fontIcon="group"></mat-icon>
     Caregivers
   </button>
   <button [routerLink]="['/dashboard/user-profile']">
-    <span class="nav-icon">👤</span>
+    <mat-icon class="nav-icon" fontIcon="perm_identity"></mat-icon>
     Profile
   </button>
 </nav>
