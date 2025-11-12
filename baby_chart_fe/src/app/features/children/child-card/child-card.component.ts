@@ -36,7 +36,7 @@ export class ChildCardComponent implements OnInit {
   childToEdit: Child | null = null;
   selectedChild: Child | null = null;
   caregivers = signal<User[]>([]);
-  displayChart = signal<boolean>(false);
+  chartChildId: number | null = null;
 
   constructor(
     private childService: ChildService,
@@ -89,9 +89,12 @@ export class ChildCardComponent implements OnInit {
     this.displayEditCard.set(this.displayEditCard());
   }
 
-  toggleChartCard() {
-    this.displayChart.set(!this.displayChart());
-    console.log(this.displayChart);
+  toggleChartCard(childId: number) {
+    if (this.chartChildId === childId) {
+      this.chartChildId = null; //close
+    } else {
+      this.chartChildId = childId; //open
+    }
   }
 
   deleteHandler(child_name: string, id: number) {

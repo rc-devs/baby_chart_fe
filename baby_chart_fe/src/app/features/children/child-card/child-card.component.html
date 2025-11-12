@@ -3,8 +3,10 @@
   <p>Child Name: {{ c.child_name }}</p>
   <p>Child DOB: {{ c.date_of_birth }}</p>
   <button (click)="displayChildToEdit(c)">Edit Child Information</button>
-  <button (click)="toggleChartCard()">Toggle {{ c.child_name }}'s Chart</button>
-  @if (displayChart()) {
+  <button (click)="toggleChartCard(c.id)">
+    Toggle {{ c.child_name }}'s Chart
+  </button>
+  @if (chartChildId === c.id) {
   <app-chart [child]="c"></app-chart>
   }
 </div>
